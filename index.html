@@ -13,6 +13,7 @@
 
     <h2>Neon Overlay Generator</h2>
 
+    <!-- COLORS -->
     <div class="section">
       <label>Colors (up to 6)</label>
       <input type="color" id="c1" value="#ff6ad5">
@@ -23,6 +24,7 @@
       <input type="color" id="c6" value="#ff9e7b">
     </div>
 
+    <!-- PRESETS -->
     <div class="section">
       <label>Preset</label>
       <select id="preset">
@@ -35,6 +37,7 @@
       </select>
     </div>
 
+    <!-- DIRECTION -->
     <div class="section">
       <label>Direction</label>
       <select id="direction">
@@ -47,26 +50,31 @@
       </select>
     </div>
 
+    <!-- SPEED -->
     <div class="section">
-      <label>Speed (seconds)</label>
-      <input type="range" id="speed" min="2" max="20" value="6">
+      <label>Speed (smooth animation)</label>
+      <input type="range" id="speedRange" min="1" max="20" value="6">
     </div>
 
+    <!-- GLOW -->
     <div class="section">
       <label>Glow intensity</label>
       <input type="range" id="glow" min="0" max="40" value="12">
     </div>
 
+    <!-- HEIGHT -->
     <div class="section">
       <label>Height (px)</label>
       <input type="number" id="height" min="4" max="300" value="20">
     </div>
 
+    <!-- BUTTONS -->
     <button id="copyCSS">📋 Copy CSS</button>
     <button id="downloadPNG">🖼 Download PNG</button>
     <button id="downloadWEBM">🎞 Download WEBM</button>
   </div>
 
+  <!-- PREVIEW -->
   <div class="preview-area">
     <div id="preview"></div>
     <div class="fullscreen-btn" onclick="toggleFullscreen()">⛶</div>
