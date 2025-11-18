@@ -9,9 +9,13 @@ function updatePreview(){
   const h  = height.value;
 
   preview.style.height = h+'px';
-  preview.style.animationDuration = sp+'s';
-  preview.style.boxShadow = `0 0 ${gl}px ${colors[2]}`;
+
+  // 🔥 ANIMAÇÃO FUNCIONANDO 🔥
   preview.style.background = `linear-gradient(${dir}, ${colors.join(', ')})`;
+  preview.style.backgroundSize = "400% 400%";
+  preview.style.animation = `moveGradient ${sp}s linear infinite`;
+
+  preview.style.boxShadow = `0 0 ${gl}px ${colors[2]}`;
 }
 
 cols.forEach(el => el.addEventListener('input', updatePreview));
@@ -36,38 +40,3 @@ preset.addEventListener('change',()=>{
 });
 
 updatePreview();
-
-copyCSS.onclick = () => {
-  navigator.clipboard.writeText(preview.style.background);
-  alert("CSS copied!");
-};
-
-downloadPNG.onclick = () => {
-  const canvas = document.createElement('canvas');
-  canvas.width = 1920;
-  canvas.height = parseInt(height.value);
-  const ctx = canvas.getContext('2d');
-
-  const gradient = ctx.createLinearGradient(0, 0, canvas.width, 0);
-  const colors = cols.map(x => x.value);
-  colors.forEach((col, i) =>
-      gradient.addColorStop(i / (colors.length - 1), col)
-  );
-
-  ctx.fillStyle = gradient;
-  ctx.fillRect(0,0,canvas.width,canvas.height);
-
-  const a = document.createElement('a');
-  a.download = 'neon.png';
-  a.href = canvas.toDataURL();
-  a.click();
-};
-
-function toggleFullscreen(){
-  if (!document.fullscreenElement) document.documentElement.requestFullscreen();
-  else document.exitFullscreen();
-}
-
-downloadWEBM.onclick = () => {
-  alert("WEBM export coming soon!");
-};
