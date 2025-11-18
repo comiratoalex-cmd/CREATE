@@ -1,85 +1,96 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Neon Overlay Generator</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
+const preview = document.getElementById('preview');
+const cols = [c1,c2,c3,c4,c5,c6];
 
-  <div class="sidebar">
-    <img src="assets/logo.png" class="logo" />
+/* ================
+   MOVIMENTO SUAVE
+   ================ */
+let animOffset = 0;
 
-    <h2>Neon Overlay Generator</h2>
+function animateGradient() {
+    const speed = parseFloat(speedRange.value) || 6;
 
-    <!-- COLORS -->
-    <div class="section">
-      <label>Colors (up to 6)</label>
-      <input type="color" id="c1" value="#ff6ad5">
-      <input type="color" id="c2" value="#b96bff">
-      <input type="color" id="c3" value="#6da6ff">
-      <input type="color" id="c4" value="#3dfff2">
-      <input type="color" id="c5" value="#ffec8a">
-      <input type="color" id="c6" value="#ff9e7b">
-    </div>
+    // velocidade suave, contínua
+    animOffset += (0.0008 / speed);  
 
-    <!-- PRESETS -->
-    <div class="section">
-      <label>Preset</label>
-      <select id="preset">
-        <option value="custom">Custom</option>
-        <option value="aurora">Aurora Borealis</option>
-        <option value="pastel">Pastel Neon</option>
-        <option value="cyber">Cyberpunk</option>
-        <option value="pride">Pride</option>
-        <option value="fog">DBD Fog Glow</option>
-      </select>
-    </div>
+    if (animOffset > 1) animOffset = 0;
 
-    <!-- DIRECTION -->
-    <div class="section">
-      <label>Direction</label>
-      <select id="direction">
-        <option value="90deg">Left → Right</option>
-        <option value="270deg">Right → Left</option>
-        <option value="0deg">Top → Bottom</option>
-        <option value="180deg">Bottom → Top</option>
-        <option value="45deg">Diagonal ↗</option>
-        <option value="135deg">Diagonal ↘</option>
-      </select>
-    </div>
+    preview.style.backgroundPosition = `${animOffset * 400}% 50%`;
 
-    <!-- SPEED -->
-    <div class="section">
-      <label>Speed (smooth animation)</label>
-      <input type="range" id="speedRange" min="1" max="20" value="6">
-    </div>
+    requestAnimationFrame(animateGradient);
+}
 
-    <!-- GLOW -->
-    <div class="section">
-      <label>Glow intensity</label>
-      <input type="range" id="glow" min="0" max="40" value="12">
-    </div>
+/* =======================
+   ATUALIZA A APARÊNCIA
+   ======================= */
+function updatePreview(){
+  const colors = cols.map(c => c.value);
+  const dir = direction.value;
+  const gl = glow.value;
+  const h  = height.value;
 
-    <!-- HEIGHT -->
-    <div class="section">
-      <label>Height (px)</label>
-      <input type="number" id="height" min="4" max="300" value="20">
-    </div>
+  preview.style.height = h + 'px';
 
-    <!-- BUTTONS -->
-    <button id="copyCSS">📋 Copy CSS</button>
-    <button id="downloadPNG">🖼 Download PNG</button>
-    <button id="downloadWEBM">🎞 Download WEBM</button>
-  </div>
+  preview.style.background = `linear-gradient(${dir}, ${colors.join(', ')})`;
+  preview.style.backgroundSize = "400% 400%";
 
-  <!-- PREVIEW -->
-  <div class="preview-area">
-    <div id="preview"></div>
-    <div class="fullscreen-btn" onclick="toggleFullscreen()">⛶</div>
-  </div>
+  preview.style.boxShadow = `0 0 ${gl}px ${colors[2]}`;
+}
 
-  <script src="script.js"></script>
-</body>
-</html>
+/* EVENTOS */
+cols.forEach(el => el.addEventListener('input', updatePreview));
+direction.addEventListener('input', updatePreview);
+glow.addEventListener('input', updatePreview);
+height.addEventListener('input', updatePreview);
+
+preset.addEventListener('change',()=>{
+  const sets={
+    aurora:['#00ffe7','#0095ff','#7f2bff','#ff4fd8','#ffbd39','#ff5e5e'],
+    pastel:['#ffbfd4','#ff9cf4','#c484ff','#8ac6ff','#a8fff1','#fff0b5'],
+    cyber:['#ff0062','#c800ff','#5200ff','#00c8ff','#00ffea','#ffea00'],
+    pride:['#ff0018','#ffa52c','#ffff41','#008018','#0000f9','#86007d'],
+    fog:['#6d7eff','#c95bff','#ff4fab','#ff7361','#ffd16b','#aafff4']
+  };
+
+  if(sets[preset.value]) {
+    [c1,c2,c3,c4,c5,c6].forEach((c,i)=>c.value = sets[preset.value][i]);
+  }
+  updatePreview();
+});
+
+/* PNG EXPORT */
+downloadPNG.onclick = () => {
+  const canvas = document.createElement('canvas');
+  canvas.width = 1920;
+  canvas.height = parseInt(height.value);
+  const ctx = canvas.getContext('2d');
+
+  const gradient = ctx.createLinearGradient(0,0,canvas.width,0);
+  const colors = cols.map(x => x.value);
+  colors.forEach((col,i) =>
+    gradient.addColorStop(i/(colors.length - 1), col)
+  );
+
+  ctx.fillStyle = gradient;
+  ctx.fillRect(0,0,canvas.height);
+
+  const a = document.createElement('a');
+  a.download = 'neon.png';
+  a.href = canvas.toDataURL();
+  a.click();
+};
+
+/* FULLSCREEN */
+function toggleFullscreen() {
+  if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+  else document.exitFullscreen();
+}
+
+/* CSS COPY */
+copyCSS.onclick = () => {
+  navigator.clipboard.writeText(preview.style.background);
+  alert("CSS copied!");
+};
+
+/* INICIAR */
+updatePreview();
+animateGradient();
