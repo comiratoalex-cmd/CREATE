@@ -1,26 +1,43 @@
 const preview = document.getElementById('preview');
 const cols = [c1,c2,c3,c4,c5,c6];
 
+/* ================
+   MOVIMENTO SUAVE
+   ================ */
+let animOffset = 0;
+
+function animateGradient() {
+    const speed = parseFloat(speedRange.value) || 6;
+    animOffset += (0.0008 / speed);  // movimento suave
+
+    if (animOffset > 1) animOffset = 0;
+
+    preview.style.backgroundPosition = `${animOffset * 400}% 50%`;
+
+    requestAnimationFrame(animateGradient);
+}
+
+/* =======================
+   ATUALIZA AS CONFIGURAÇÕES
+   ======================= */
 function updatePreview(){
   const colors = cols.map(c=>c.value);
   const dir = direction.value;
-  const sp = speed.value;
   const gl = glow.value;
   const h  = height.value;
 
   preview.style.height = h+'px';
 
-  // 🔥 ANIMAÇÃO FUNCIONANDO 🔥
+  // GRADIENTE SUAVE
   preview.style.background = `linear-gradient(${dir}, ${colors.join(', ')})`;
-  preview.style.backgroundSize = "400% 400%";
-  preview.style.animation = `moveGradient ${sp}s linear infinite`;
 
+  preview.style.backgroundSize = "400% 400%";
   preview.style.boxShadow = `0 0 ${gl}px ${colors[2]}`;
 }
 
+/* EVENTOS */
 cols.forEach(el => el.addEventListener('input', updatePreview));
 direction.addEventListener('input', updatePreview);
-speed.addEventListener('input', updatePreview);
 glow.addEventListener('input', updatePreview);
 height.addEventListener('input', updatePreview);
 
@@ -39,4 +56,40 @@ preset.addEventListener('change',()=>{
   updatePreview();
 });
 
+/* FULLSCREEN */
+function toggleFullscreen(){
+  if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+  else document.exitFullscreen();
+}
+
+/* EXPORT PNG */
+downloadPNG.onclick = () => {
+  const canvas = document.createElement('canvas');
+  canvas.width = 1920;
+  canvas.height = parseInt(height.value);
+  const ctx = canvas.getContext('2d');
+
+  const gradient = ctx.createLinearGradient(0, 0, canvas.width, 0);
+  const colors = cols.map(x => x.value);
+  colors.forEach((col, i) =>
+      gradient.addColorStop(i / (colors.length - 1), col)
+  );
+
+  ctx.fillStyle = gradient;
+  ctx.fillRect(0,0,canvas.width,canvas.height);
+
+  const a = document.createElement('a');
+  a.download = 'neon.png';
+  a.href = canvas.toDataURL();
+  a.click();
+};
+
+/* CSS COPY */
+copyCSS.onclick = () => {
+  navigator.clipboard.writeText(preview.style.background);
+  alert("CSS copied!");
+};
+
+/* START EVERYTHING */
 updatePreview();
+animateGradient();
