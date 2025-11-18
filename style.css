@@ -10,7 +10,7 @@ body {
 
 .sidebar {
   width: 340px;
-  background: rgba(15, 15, 25, 0.9);
+  background: rgba(15, 15, 25, 0.92);
   backdrop-filter: blur(10px);
   border-right: 2px solid rgba(255,255,255,0.05);
   padding: 22px;
