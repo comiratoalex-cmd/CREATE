@@ -9,129 +9,80 @@
 
 <body>
 
-<!-- ============================================================
-     MODO OBS FULLSCREEN (ATIVA QUANDO URL TEM "?obs=1")
-=============================================================== -->
 <script>
-  if (window.location.search.includes("obs=1")) {
-    document.body.innerHTML = `
-      <div id="preview" style="
-        position: fixed;
-        top: 0; left: 0;
-        width: 100vw;
-        height: 100vh;
-        border-radius: 0;
-      "></div>
-    `;
+  // Detecta modo OBS
+  const isOBS = window.location.search.includes("obs=1");
 
-    // Carrega script.js mesmo no modo OBS
-    const js = document.createElement("script");
-    js.src = "script.js";
-    document.body.appendChild(js);
+  if (isOBS) {
+    document.body.innerHTML = `
+      <div id="preview"></div>
+    `;
   }
 </script>
 
-<!-- ============================================================
-     INTERFACE NORMAL (MOSTRA SE NÃO ESTIVER NO MODO OBS)
-=============================================================== -->
-<div class="sidebar">
-  <img src="assets/logo.png" class="logo" />
+<!-- INTERFACE NORMAL -->
+<div id="app" style="display: none;">
+  <div class="sidebar">
+    <img src="assets/logo.png" class="logo" />
 
-  <h2>Neon Overlay Generator PRO</h2>
+    <h2>Neon Overlay Generator PRO</h2>
 
-  <!-- COLORS -->
-  <div class="section">
-    <label>Colors (up to 6)</label>
-    <input type="color" id="c1" value="#ff6ad5">
-    <input type="color" id="c2" value="#b96bff">
-    <input type="color" id="c3" value="#6da6ff">
-    <input type="color" id="c4" value="#3dfff2">
-    <input type="color" id="c5" value="#ffec8a">
-    <input type="color" id="c6" value="#ff9e7b">
+    <div class="section">
+      <label>Colors</label>
+      <input type="color" id="c1" value="#ff6ad5">
+      <input type="color" id="c2" value="#b96bff">
+      <input type="color" id="c3" value="#6da6ff">
+      <input type="color" id="c4" value="#3dfff2">
+      <input type="color" id="c5" value="#ffec8a">
+      <input type="color" id="c6" value="#ff9e7b">
+    </div>
+
+    <div class="section">
+      <label>Preset</label>
+      <select id="preset">
+        <option value="custom">Custom</option>
+        <option value="aurora">Aurora</option>
+        <option value="pastel">Pastel</option>
+        <option value="cyber">Cyberpunk</option>
+        <option value="pride">Pride</option>
+        <option value="fog">DBD Fog</option>
+      </select>
+    </div>
+
+    <div class="section">
+      <label>Direction</label>
+      <select id="direction">
+        <option value="90deg">Left → Right</option>
+        <option value="270deg">Right → Left</option>
+      </select>
+    </div>
+
+    <div class="section">
+      <label>Speed</label>
+      <input type="range" id="speedRange" min="1" max="20" value="6">
+    </div>
+
+    <div class="section">
+      <label>Height</label>
+      <input type="number" id="height" min="4" max="300" value="20">
+    </div>
+
+    <button id="obsMode">OBS Mode</button>
   </div>
 
-  <!-- PRESETS -->
-  <div class="section">
-    <label>Preset</label>
-    <select id="preset">
-      <option value="custom">Custom</option>
-      <option value="aurora">Aurora Borealis</option>
-      <option value="pastel">Pastel Neon</option>
-      <option value="cyber">Cyberpunk</option>
-      <option value="pride">Pride</option>
-      <option value="fog">DBD Fog Glow</option>
-      <option value="vaporwave">Vaporwave</option>
-      <option value="galaxy">Galaxy Pulse</option>
-      <option value="inferno">Inferno</option>
-      <option value="ice">Ice Beam</option>
-      <option value="toxic">Toxic Green</option>
-    </select>
+  <div class="preview-area">
+    <div id="preview"></div>
   </div>
-
-  <!-- DIRECTION -->
-  <div class="section">
-    <label>Direction</label>
-    <select id="direction">
-      <option value="90deg">Left → Right</option>
-      <option value="270deg">Right → Left</option>
-      <option value="0deg">Top → Bottom</option>
-      <option value="180deg">Bottom → Top</option>
-      <option value="45deg">Diagonal ↗</option>
-      <option value="135deg">Diagonal ↘</option>
-    </select>
-  </div>
-
-  <!-- SPEED -->
-  <div class="section">
-    <label>Speed (smooth)</label>
-    <input type="range" id="speedRange" min="1" max="20" value="6">
-  </div>
-
-  <!-- EXTRA CONTROLS -->
-  <div class="section">
-    <label>Glow intensity</label>
-    <input type="range" id="glow" min="0" max="40" value="14">
-  </div>
-
-  <div class="section">
-    <label>Opacity</label>
-    <input type="range" id="opacity" min="10" max="100" value="100">
-  </div>
-
-  <div class="section">
-    <label>Brightness</label>
-    <input type="range" id="brightness" min="50" max="200" value="100">
-  </div>
-
-  <div class="section">
-    <label>Saturation</label>
-    <input type="range" id="saturation" min="0" max="200" value="100">
-  </div>
-
-  <div class="section">
-    <label>Blur</label>
-    <input type="range" id="blur" min="0" max="40" value="0">
-  </div>
-
-  <div class="section">
-    <label>Height (px)</label>
-    <input type="number" id="height" min="4" max="300" value="20">
-  </div>
-
-  <!-- BUTTONS -->
-  <button id="copyCSS">📋 Copy CSS</button>
-  <button id="downloadPNG">🖼 Download PNG</button>
-  <button id="downloadWEBM">🎞 Download WEBM</button>
-  <button id="obsMode">🎬 OBS Fullscreen Mode</button>
 </div>
 
-<!-- PREVIEW AREA -->
-<div class="preview-area">
-  <div id="preview"></div>
-  <div class="fullscreen-btn" onclick="toggleFullscreen()">⛶</div>
-</div>
+<script src="script.js" defer></script>
 
-<script src="script.js"></script>
+<script>
+  // Se NÃO for OBS, mostrar interface
+  if (!window.location.search.includes("obs=1")) {
+    document.getElementById("app").style.display = "flex";
+  }
+</script>
 
 </body>
 </html>
