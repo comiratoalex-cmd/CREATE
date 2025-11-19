@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Neon Overlay Generator — SUPER PRO MAX</title>
+  <title>Neon Overlay Generator — SUPER PRO MAX ULTRA</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 
@@ -21,7 +21,7 @@
 
     <div class="title-area">
       <h1>Neon Generator</h1>
-      <h2>SUPER PRO MAX</h2>
+      <h2>SUPER PRO MAX ULTRA</h2>
     </div>
 
     <!-- THEME SWITCH -->
@@ -99,7 +99,7 @@
       </select>
     </div>
 
-    <!-- CONTROLS -->
+    <!-- DIRECTION -->
     <div class="section">
       <label>Direction</label>
       <select id="direction">
@@ -110,19 +110,34 @@
       </select>
     </div>
 
+    <!-- SPEED CONTROL -->
     <div class="section">
-      <label>Speed</label>
+      <label>Speed (Custom)</label>
       <input type="range" id="speedRange" min="1" max="40" value="8">
     </div>
 
     <div class="section">
-      <label>Glow</label>
-      <input type="range" id="glow" min="0" max="50" value="18">
+      <label>Speed Presets</label>
+      <div class="speed-buttons">
+        <button class="speed-btn" data-speed="2">Ultra Slow</button>
+        <button class="speed-btn" data-speed="6">Slow</button>
+        <button class="speed-btn" data-speed="12">Normal</button>
+        <button class="speed-btn" data-speed="20">Fast</button>
+        <button class="speed-btn" data-speed="30">Hyper</button>
+        <button class="speed-btn" data-speed="40">Insane RGB</button>
+      </div>
     </div>
 
+    <!-- HEIGHT -->
     <div class="section">
       <label>Height (px)</label>
       <input type="number" id="height" min="4" max="250" value="22">
+    </div>
+
+    <!-- GLOW -->
+    <div class="section">
+      <label>Glow</label>
+      <input type="range" id="glow" min="0" max="50" value="18">
     </div>
 
     <!-- OBS LINK GENERATOR -->
@@ -142,10 +157,16 @@
 
   </div>
 
-  <!-- PREVIEW MAIN BAR -->
+  <!-- PREVIEW -->
   <div class="preview-container">
     <div id="preview"></div>
   </div>
+
+  <!-- WEBCAM CONTAINER -->
+  <video id="webcamVideo" autoplay playsinline muted></video>
+
+  <!-- QR CODE -->
+  <img id="qrCode" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://twitch.tv/" />
 
   <script src="script.js" defer></script>
 </body>
