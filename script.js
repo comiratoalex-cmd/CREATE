@@ -1,6 +1,6 @@
 /* ======================================================
-   SUPER PRO MAX ENGINE
-   Particles + Neon Gradient + RGB Engine + Border 360°
+   SUPER PRO MAX — FULL JAVASCRIPT ENGINE
+   Particles • Neon • OBS Link • RGB • Presets
 ====================================================== */
 
 /* -------------------------------
@@ -22,15 +22,15 @@ for (let i = 0; i < 70; i++) {
     x: Math.random() * canvas.width,
     y: Math.random() * canvas.height,
     r: Math.random() * 2 + 1,
-    dx: (Math.random() - 0.5) * 0.4,
-    dy: (Math.random() - 0.5) * 0.4,
+    dx: (Math.random() - 0.5) * 0.3,
+    dy: (Math.random() - 0.5) * 0.3,
   });
 }
 
 function drawParticles() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.fillStyle = "rgba(155, 100, 255, 0.7)";
-  particles.forEach(p => {
+  particles.forEach((p) => {
     ctx.beginPath();
     ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
     ctx.fill();
@@ -65,8 +65,10 @@ const obsMode = document.getElementById("obsMode");
 const downloadPNG = document.getElementById("downloadPNG");
 const downloadWEBM = document.getElementById("downloadWEBM");
 const copyCSS = document.getElementById("copyCSS");
-
+const copyOBSLink = document.getElementById("copyOBSLink");
+const obsLinkField = document.getElementById("obsLink");
 const themeToggle = document.getElementById("themeToggle");
+
 const sidebar = document.getElementById("sidebar");
 const collapseBtn = document.getElementById("collapseBtn");
 
@@ -82,53 +84,124 @@ collapseBtn.onclick = () => {
 --------------------------------*/
 themeToggle.onclick = () => {
   document.body.classList.toggle("light");
-  localStorage.setItem("theme", document.body.classList.contains("light") ? "light" : "dark");
+  localStorage.setItem(
+    "theme",
+    document.body.classList.contains("light") ? "light" : "dark"
+  );
 };
 
 if (localStorage.getItem("theme") === "light") {
   document.body.classList.add("light");
 }
 
+/* ======================================================
+   OBS LINK GENERATOR
+====================================================== */
+function generateOBSLink() {
+  const base = window.location.origin + window.location.pathname;
+
+  const params = new URLSearchParams({
+    obs: "1",
+    c1: c1.value,
+    c2: c2.value,
+    c3: c3.value,
+    c4: c4.value,
+    c5: c5.value,
+    c6: c6.value,
+    speed: speedRange.value,
+    glow: glow.value,
+    height: heightControl.value,
+    direction: direction.value,
+    rgbMode: rgbMode.value,
+    pulseMode: pulseMode.value,
+    borderType: borderType.value,
+    preset: preset.value,
+  });
+
+  obsLinkField.value = `${base}?${params.toString()}`;
+}
+generateOBSLink();
+
+copyOBSLink.onclick = () => {
+  navigator.clipboard.writeText(obsLinkField.value);
+  alert("OBS link copied!");
+};
+
 /* -------------------------------
-   BORDER TYPE (360°)
+   APPLY PARAMETERS ON OBS MODE
 --------------------------------*/
-function applyBorderType() {
-  preview.className = "";
+if (window.location.search.includes("obs=1")) {
+  const params = new URLSearchParams(window.location.search);
 
-  switch (borderType.value) {
-    case "bar":
-      preview.style.position = "relative";
-      break;
+  const applyParam = (el, key) => {
+    if (params.get(key)) el.value = params.get(key);
+  };
 
-    case "top":
-      preview.classList.add("top");
-      break;
+  applyParam(c1, "c1");
+  applyParam(c2, "c2");
+  applyParam(c3, "c3");
+  applyParam(c4, "c4");
+  applyParam(c5, "c5");
+  applyParam(c6, "c6");
 
-    case "bottom":
-      preview.classList.add("bottom");
-      break;
+  applyParam(speedRange, "speed");
+  applyParam(glow, "glow");
+  applyParam(heightControl, "height");
+  applyParam(direction, "direction");
+  applyParam(rgbMode, "rgbMode");
+  applyParam(pulseMode, "pulseMode");
+  applyParam(borderType, "borderType");
+  applyParam(preset, "preset");
 
-    case "left":
-      preview.classList.add("left");
-      break;
-
-    case "right":
-      preview.classList.add("right");
-      break;
-
-    case "fullframe":
-      preview.classList.add("fullframe");
-      break;
-  }
+  update();
+  applyBorderType();
 }
 
-/* -------------------------------
-   RGB ANIMATED MODES
---------------------------------*/
+/* ======================================================
+   FIXED & SMOOTH GRADIENT SPEED
+====================================================== */
+let gradientOffset = 0;
+function animateGradient() {
+  const speed = parseFloat(speedRange.value) * 0.15;
+  gradientOffset += 0.0015 * speed;
+  if (gradientOffset > 1) gradientOffset = 0;
+
+  preview.style.backgroundPosition = `${gradientOffset * 400}% 50%`;
+  requestAnimationFrame(animateGradient);
+}
+animateGradient();
+
+/* ======================================================
+   PRESETS — includes PASTEL
+====================================================== */
+const PRESETS = {
+  pastel: ["#FFB7E6", "#E7C6FF", "#C9E6FF", "#B1FFF0", "#FFF6A5", "#FFD6BA"],
+  aurora: ["#00ffe7", "#0095ff", "#7f2bff", "#ff4fd8", "#ffbd39", "#ff5e5e"],
+  cyber: ["#ff0062", "#c800ff", "#5200ff", "#00c8ff", "#00ffe7", "#ffeb00"],
+  vapor: ["#ff7edb", "#b695ff", "#7ad3ff", "#8affda", "#fff8a6", "#ffc3b0"],
+  pride: ["#ff0018", "#ffa52c", "#ffff41", "#008018", "#0000f9", "#86007d"],
+  galaxy: ["#120078", "#9d0191", "#fd3a69", "#fecd1a", "#00f7ff", "#280aef"],
+  inferno: ["#ff0000", "#ff3b00", "#ff8a00", "#ffd500", "#ff4800", "#ff2200"],
+  ice: ["#00eaff", "#00cfff", "#00b4ff", "#569dff", "#a9d6ff", "#ffffff"],
+};
+
+preset.addEventListener("change", () => {
+  if (PRESETS[preset.value]) {
+    PRESETS[preset.value].forEach((color, i) => {
+      cols[i].value = color;
+    });
+  }
+  update();
+  generateOBSLink();
+});
+
+/* ======================================================
+   RGB MODES — NEW ULTRA SLOW + FIRESTORM
+====================================================== */
 let rgbTick = 0;
 
 function rgbEngine() {
-  rgbTick += 0.01;
+  rgbTick += 0.007;
 
   if (rgbMode.value === "rainbow") {
     cols.forEach((c, i) => {
@@ -138,7 +211,7 @@ function rgbEngine() {
 
   if (rgbMode.value === "rainbowFast") {
     cols.forEach((c, i) => {
-      c.value = `hsl(${(rgbTick * 160 + i * 60) % 360}, 100%, 55%)`;
+      c.value = `hsl(${(rgbTick * 180 + i * 50) % 360}, 100%, 55%)`;
     });
   }
 
@@ -154,46 +227,64 @@ function rgbEngine() {
     });
   }
 
-  if (rgbMode.value !== "off") update();
+  if (rgbMode.value === "ultraSlow") {
+    cols.forEach((c, i) => {
+      c.value = `hsl(${(rgbTick * 20 + i * 25) % 360}, 100%, 60%)`;
+    });
+  }
+
+  if (rgbMode.value === "firestorm") {
+    cols.forEach((c, i) => {
+      c.value = `hsl(${(rgbTick * 500 + i * 80) % 360}, 100%, ${
+        40 + Math.sin(rgbTick * 8) * 20
+      }%)`;
+    });
+  }
+
+  if (rgbMode.value !== "off") {
+    update();
+    generateOBSLink();
+  }
 
   requestAnimationFrame(rgbEngine);
 }
 rgbEngine();
 
-/* -------------------------------
-   PULSE EFFECTS
---------------------------------*/
+/* ======================================================
+   PULSE EFFECTS — Soft Waves / Double Glow
+====================================================== */
 let pulseTick = 0;
 
 function pulseEngine() {
   pulseTick += 0.03;
 
-  if (pulseMode.value === "breath") {
-    const g = glow.value * (1 + Math.sin(pulseTick) * 0.4);
-    preview.style.boxShadow = `0 0 ${g}px ${cols[2].value}`;
+  if (pulseMode.value === "softwaves") {
+    const g = glow.value * (1 + Math.sin(pulseTick * 0.8) * 0.3);
+    preview.style.boxShadow = `0 0 ${g}px ${cols[1].value}`;
   }
 
-  if (pulseMode.value === "pulse") {
-    const g = glow.value * (1 + Math.sin(pulseTick * 2) * 0.7);
-    preview.style.boxShadow = `0 0 ${g}px ${cols[3].value}`;
-  }
+  if (pulseMode.value === "doubleglow") {
+    const g1 = glow.value * (1 + Math.sin(pulseTick * 2) * 0.4);
+    const g2 = glow.value * (1 + Math.cos(pulseTick * 3) * 0.3);
 
-  if (pulseMode.value === "wave") {
-    const g = glow.value * (1 + Math.sin(pulseTick * 4) * 0.5);
-    preview.style.boxShadow = `0 0 ${g}px ${cols[4].value}`;
+    preview.style.boxShadow = `
+      0 0 ${g1}px ${cols[2].value},
+      0 0 ${g2}px ${cols[4].value}
+    `;
   }
 
   requestAnimationFrame(pulseEngine);
 }
 pulseEngine();
 
-/* -------------------------------
-   MAIN UPDATE
---------------------------------*/
+/* ======================================================
+   UPDATE PREVIEW
+====================================================== */
 function update() {
   applyBorderType();
+  generateOBSLink();
 
-  const colors = cols.map(c => c.value);
+  const colors = cols.map((c) => c.value);
   const dir = direction.value;
   const h = heightControl.value;
   const g = glow.value;
@@ -204,61 +295,45 @@ function update() {
   preview.style.boxShadow = `0 0 ${g}px ${colors[3]}`;
 }
 
-/* -------------------------------
-   ANIMATION LOOP
---------------------------------*/
-let gradientOffset = 0;
+/* ======================================================
+   BORDERS 360°
+====================================================== */
+function applyBorderType() {
+  preview.className = "";
 
-function animateGradient() {
-  const speed = parseFloat(speedRange.value);
-  gradientOffset += 0.002 * speed;
-  if (gradientOffset > 1) gradientOffset = 0;
-
-  preview.style.backgroundPosition = `${gradientOffset * 400}% 50%`;
-  requestAnimationFrame(animateGradient);
-}
-animateGradient();
-
-/* -------------------------------
-   PRESETS
---------------------------------*/
-const PRESETS = {
-  aurora: ["#00ffe7","#0095ff","#7f2bff","#ff4fd8","#ffbd39","#ff5e5e"],
-  cyber: ["#ff0062","#c800ff","#5200ff","#00c8ff","#00ffe7","#ffeb00"],
-  vapor: ["#ff7edb","#b695ff","#7ad3ff","#8affda","#fff8a6","#ffc3b0"],
-  pride: ["#ff0018","#ffa52c","#ffff41","#008018","#0000f9","#86007d"],
-  galaxy: ["#120078","#9d0191","#fd3a69","#fecd1a","#00f7ff","#280aef"],
-  inferno: ["#ff0000","#ff3b00","#ff8a00","#ffd500","#ff4800","#ff2200"],
-  ice: ["#00eaff","#00cfff","#00b4ff","#569dff","#a9d6ff","#ffffff"]
-};
-
-preset.addEventListener("change", () => {
-  if (PRESETS[preset.value]) {
-    PRESETS[preset.value].forEach((color, i) => {
-      cols[i].value = color;
-    });
+  switch (borderType.value) {
+    case "top":
+      preview.classList.add("top");
+      break;
+    case "bottom":
+      preview.classList.add("bottom");
+      break;
+    case "left":
+      preview.classList.add("left");
+      break;
+    case "right":
+      preview.classList.add("right");
+      break;
+    case "fullframe":
+      preview.classList.add("fullframe");
+      break;
   }
-  update();
-});
+}
 
-/* -------------------------------
-   EVENTS
---------------------------------*/
-document.querySelectorAll("input,select").forEach(el => {
-  el.addEventListener("input", update);
-});
+/* ======================================================
+   EVENT LISTENERS
+====================================================== */
+document
+  .querySelectorAll("input,select")
+  .forEach((el) => el.addEventListener("input", update));
 
-/* -------------------------------
-   COPY CSS
---------------------------------*/
-copyCSS.onclick = () => {
-  navigator.clipboard.writeText(preview.style.background);
-  alert("Copied!");
-};
+document
+  .querySelectorAll("input,select")
+  .forEach((el) => el.addEventListener("input", generateOBSLink));
 
-/* -------------------------------
+/* ======================================================
    PNG EXPORT
---------------------------------*/
+====================================================== */
 downloadPNG.onclick = () => {
   const canvas = document.createElement("canvas");
   canvas.width = 1920;
@@ -266,26 +341,25 @@ downloadPNG.onclick = () => {
 
   const ctx = canvas.getContext("2d");
 
-  const grad = ctx.createLinearGradient(0,0,canvas.width,0);
-  const colors = cols.map(c => c.value);
+  const grad = ctx.createLinearGradient(0, 0, canvas.width, 0);
+  const colors = cols.map((c) => c.value);
 
-  colors.forEach((c,i)=>grad.addColorStop(i/colors.length, c));
+  colors.forEach((c, i) => grad.addColorStop(i / (colors.length - 1), c));
 
   ctx.fillStyle = grad;
-  ctx.fillRect(0,0,canvas.width, canvas.height);
+  ctx.fillRect(0, 0, canvas.height);
 
-  const link = document.createElement("a");
-  link.download = "neon.png";
-  link.href = canvas.toDataURL("image/png");
-  link.click();
+  const a = document.createElement("a");
+  a.download = "neon.png";
+  a.href = canvas.toDataURL("image/png");
+  a.click();
 };
 
-/* -------------------------------
-   WEBM EXPORT (TRANSPARENT)
---------------------------------*/
+/* ======================================================
+   WEBM EXPORT (REAL)
+====================================================== */
 downloadWEBM.onclick = async () => {
-
-  alert("⚠️ WEBM export is heavy. Recording 5 seconds…");
+  alert("Recording 4 seconds…");
 
   const stream = preview.captureStream(60);
   const recorder = new MediaRecorder(stream, {
@@ -293,32 +367,6 @@ downloadWEBM.onclick = async () => {
   });
 
   const chunks = [];
-  recorder.ondataavailable = e => chunks.push(e.data);
+  recorder.ondataavailable = (e) => chunks.push(e.data);
 
-  recorder.onstop = () => {
-    const blob = new Blob(chunks, { type: "video/webm" });
-    const url = URL.createObjectURL(blob);
-
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "neon.webm";
-    a.click();
-  };
-
-  recorder.start();
-
-  setTimeout(() => recorder.stop(), 5000);
-};
-
-/* -------------------------------
-   OBS MODE
---------------------------------*/
-obsMode.onclick = () => {
-  const base = window.location.origin + window.location.pathname;
-  window.open(base + "?obs=1", "_blank");
-};
-
-/* -------------------------------
-   INIT
---------------------------------*/
-update();
+  recorder
