@@ -169,6 +169,131 @@
   <img id="qrCode" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://twitch.tv/" />
 
   <script src="script.js" defer></script>
-</body>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Neon Border Generator PRO</title>
 
+  <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+  <!-- Background Particles -->
+  <canvas id="particles"></canvas>
+
+  <!-- Collapse Button -->
+  <div id="collapseBtn">☰</div>
+
+  <!-- Sidebar -->
+  <aside id="sidebar">
+
+    <header class="title">
+      <img src="assets/logo.png" class="logo">
+      <h1>Neon Border Generator PRO</h1>
+      <p>by ChatGPT + Alex</p>
+    </header>
+
+    <!-- BORDER TYPE -->
+    <section>
+      <label>Tipo de Borda</label>
+      <select id="borderType">
+        <option value="line">Linha Superior</option>
+        <option value="rectangle">Retângulo 360°</option>
+        <option value="ellipse">Elipse</option>
+        <option value="png">PNG Personalizado</option>
+      </select>
+    </section>
+
+    <!-- COLOR PICKERS -->
+    <section>
+      <label>Cores do Gradiente</label>
+      <div class="color-grid">
+        <input type="color" id="c1" value="#ff00f7">
+        <input type="color" id="c2" value="#b96bff">
+        <input type="color" id="c3" value="#6da6ff">
+        <input type="color" id="c4" value="#20ffe7">
+        <input type="color" id="c5" value="#ffec7a">
+        <input type="color" id="c6" value="#ff9a5f">
+      </div>
+    </section>
+
+    <!-- PRESETS -->
+    <section>
+      <label>Presets</label>
+      <select id="presetSelect">
+        <option value="custom">Custom</option>
+        <option value="pastel">Pastel</option>
+        <option value="aurora">Aurora</option>
+        <option value="cyber">Cyberpunk</option>
+        <option value="vapor">Vaporwave</option>
+        <option value="galaxy">Galaxy</option>
+        <option value="ice">Ice</option>
+      </select>
+    </section>
+
+    <!-- RGB MODE -->
+    <section>
+      <label>Modo RGB</label>
+      <select id="rgbMode">
+        <option value="off">Off</option>
+        <option value="rainbow">Rainbow</option>
+        <option value="smooth">Smooth RGB</option>
+        <option value="firestorm">FireStorm</option>
+        <option value="ultraSlow">Ultra Slow</option>
+      </select>
+    </section>
+
+    <!-- SPEED -->
+    <section>
+      <label>Velocidade</label>
+      <input type="range" id="speed" min="1" max="40" value="8">
+    </section>
+
+    <!-- GLOW -->
+    <section>
+      <label>Glow</label>
+      <input type="range" id="glow" min="0" max="60" value="20">
+    </section>
+
+    <!-- PNG BORDER UPLOAD -->
+    <section>
+      <label>PNG (borda personalizada)</label>
+      <input type="file" id="pngUpload" accept="image/png">
+    </section>
+
+    <!-- OBS LINK -->
+    <section>
+      <label>OBS Link</label>
+      <input type="text" id="obsLink" readonly>
+      <button id="copyObs">Copiar Link</button>
+    </section>
+
+    <!-- ACTIONS -->
+    <section class="actions">
+      <button id="exportWebm">Exportar WEBM</button>
+      <button id="toggleTheme">Tema Claro/Escuro</button>
+      <button id="openOBS">Abrir Modo OBS</button>
+    </section>
+  </aside>
+
+  <!-- PREVIEW -->
+  <main id="previewArea">
+    <div id="preview"></div>
+    <canvas id="pngCanvas"></canvas>
+  </main>
+
+  <!-- SCRIPTS -->
+  <script src="core/presets.js"></script>
+  <script src="core/obs-link.js"></script>
+  <script src="core/shapes.js"></script>
+  <script src="core/png-border.js"></script>
+  <script src="app.js"></script>
+
+</body>
 </html>
+
+
