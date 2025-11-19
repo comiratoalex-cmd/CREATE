@@ -1,11 +1,11 @@
 /* ======================================================
-   SUPER PRO MAX — FULL JAVASCRIPT ENGINE
-   Particles • Neon • OBS Link • RGB • Presets
+   SUPER PRO MAX ULTRA ENGINE
+   (Particles • Neon • OBS • Webcam • QR • Speed Presets)
 ====================================================== */
 
-/* -------------------------------
+/* ------------------------------------------------------
    PARTICLE BACKGROUND
---------------------------------*/
+------------------------------------------------------ */
 const canvas = document.getElementById("particles");
 const ctx = canvas.getContext("2d");
 
@@ -30,6 +30,7 @@ for (let i = 0; i < 70; i++) {
 function drawParticles() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.fillStyle = "rgba(155, 100, 255, 0.7)";
+
   particles.forEach((p) => {
     ctx.beginPath();
     ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
@@ -41,13 +42,14 @@ function drawParticles() {
     if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
     if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
   });
+
   requestAnimationFrame(drawParticles);
 }
 drawParticles();
 
-/* -------------------------------
-   ELEMENTS
---------------------------------*/
+/* ------------------------------------------------------
+   ELEMENT REFERENCES
+------------------------------------------------------ */
 const preview = document.getElementById("preview");
 
 const cols = [c1, c2, c3, c4, c5, c6];
@@ -65,23 +67,26 @@ const obsMode = document.getElementById("obsMode");
 const downloadPNG = document.getElementById("downloadPNG");
 const downloadWEBM = document.getElementById("downloadWEBM");
 const copyCSS = document.getElementById("copyCSS");
-const copyOBSLink = document.getElementById("copyOBSLink");
-const obsLinkField = document.getElementById("obsLink");
-const themeToggle = document.getElementById("themeToggle");
 
+const themeToggle = document.getElementById("themeToggle");
 const sidebar = document.getElementById("sidebar");
 const collapseBtn = document.getElementById("collapseBtn");
 
-/* -------------------------------
+const webcamVideo = document.getElementById("webcamVideo");
+const qrCode = document.getElementById("qrCode");
+const obsLinkField = document.getElementById("obsLink");
+const copyOBSLink = document.getElementById("copyOBSLink");
+
+/* ------------------------------------------------------
    COLLAPSIBLE PANEL
---------------------------------*/
+------------------------------------------------------ */
 collapseBtn.onclick = () => {
   sidebar.classList.toggle("collapsed");
 };
 
-/* -------------------------------
-   THEME MODE
---------------------------------*/
+/* ------------------------------------------------------
+   THEME MODE SWITCH
+------------------------------------------------------ */
 themeToggle.onclick = () => {
   document.body.classList.toggle("light");
   localStorage.setItem(
@@ -94,9 +99,9 @@ if (localStorage.getItem("theme") === "light") {
   document.body.classList.add("light");
 }
 
-/* ======================================================
+/* ------------------------------------------------------
    OBS LINK GENERATOR
-====================================================== */
+------------------------------------------------------ */
 function generateOBSLink() {
   const base = window.location.origin + window.location.pathname;
 
@@ -127,15 +132,15 @@ copyOBSLink.onclick = () => {
   alert("OBS link copied!");
 };
 
-/* -------------------------------
-   APPLY PARAMETERS ON OBS MODE
---------------------------------*/
+/* ------------------------------------------------------
+   OBS MODE PARAMETER APPLICATION
+------------------------------------------------------ */
 if (window.location.search.includes("obs=1")) {
   const params = new URLSearchParams(window.location.search);
 
-  const applyParam = (el, key) => {
-    if (params.get(key)) el.value = params.get(key);
-  };
+  function applyParam(element, key) {
+    if (params.get(key)) element.value = params.get(key);
+  }
 
   applyParam(c1, "c1");
   applyParam(c2, "c2");
@@ -157,10 +162,11 @@ if (window.location.search.includes("obs=1")) {
   applyBorderType();
 }
 
-/* ======================================================
-   FIXED & SMOOTH GRADIENT SPEED
-====================================================== */
+/* ------------------------------------------------------
+   SMOOTH GRADIENT ANIMATION
+------------------------------------------------------ */
 let gradientOffset = 0;
+
 function animateGradient() {
   const speed = parseFloat(speedRange.value) * 0.15;
   gradientOffset += 0.0015 * speed;
@@ -171,9 +177,20 @@ function animateGradient() {
 }
 animateGradient();
 
-/* ======================================================
-   PRESETS — includes PASTEL
-====================================================== */
+/* ------------------------------------------------------
+   SPEED PRESET BUTTONS
+------------------------------------------------------ */
+document.querySelectorAll(".speed-btn").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    speedRange.value = btn.dataset.speed;
+    update();
+    generateOBSLink();
+  });
+});
+
+/* ------------------------------------------------------
+   PRESETS (INCLUDING PASTEL)
+------------------------------------------------------ */
 const PRESETS = {
   pastel: ["#FFB7E6", "#E7C6FF", "#C9E6FF", "#B1FFF0", "#FFF6A5", "#FFD6BA"],
   aurora: ["#00ffe7", "#0095ff", "#7f2bff", "#ff4fd8", "#ffbd39", "#ff5e5e"],
@@ -195,9 +212,9 @@ preset.addEventListener("change", () => {
   generateOBSLink();
 });
 
-/* ======================================================
-   RGB MODES — NEW ULTRA SLOW + FIRESTORM
-====================================================== */
+/* ------------------------------------------------------
+   RGB ENGINE (INCLUDES ULTRA SLOW & FIRESTORM)
+------------------------------------------------------ */
 let rgbTick = 0;
 
 function rgbEngine() {
@@ -250,9 +267,9 @@ function rgbEngine() {
 }
 rgbEngine();
 
-/* ======================================================
-   PULSE EFFECTS — Soft Waves / Double Glow
-====================================================== */
+/* ------------------------------------------------------
+   PULSE EFFECT ENGINE
+------------------------------------------------------ */
 let pulseTick = 0;
 
 function pulseEngine() {
@@ -277,9 +294,9 @@ function pulseEngine() {
 }
 pulseEngine();
 
-/* ======================================================
-   UPDATE PREVIEW
-====================================================== */
+/* ------------------------------------------------------
+   MAIN UPDATE FUNCTION
+------------------------------------------------------ */
 function update() {
   applyBorderType();
   generateOBSLink();
@@ -295,9 +312,9 @@ function update() {
   preview.style.boxShadow = `0 0 ${g}px ${colors[3]}`;
 }
 
-/* ======================================================
-   BORDERS 360°
-====================================================== */
+/* ------------------------------------------------------
+   BORDER TYPE HANDLING (360°)
+------------------------------------------------------ */
 function applyBorderType() {
   preview.className = "";
 
@@ -320,9 +337,9 @@ function applyBorderType() {
   }
 }
 
-/* ======================================================
-   EVENT LISTENERS
-====================================================== */
+/* ------------------------------------------------------
+   LISTEN FOR ALL INPUT CHANGES
+------------------------------------------------------ */
 document
   .querySelectorAll("input,select")
   .forEach((el) => el.addEventListener("input", update));
@@ -331,9 +348,9 @@ document
   .querySelectorAll("input,select")
   .forEach((el) => el.addEventListener("input", generateOBSLink));
 
-/* ======================================================
+/* ------------------------------------------------------
    PNG EXPORT
-====================================================== */
+------------------------------------------------------ */
 downloadPNG.onclick = () => {
   const canvas = document.createElement("canvas");
   canvas.width = 1920;
@@ -355,9 +372,9 @@ downloadPNG.onclick = () => {
   a.click();
 };
 
-/* ======================================================
-   WEBM EXPORT (REAL)
-====================================================== */
+/* ------------------------------------------------------
+   WEBM EXPORT
+------------------------------------------------------ */
 downloadWEBM.onclick = async () => {
   alert("Recording 4 seconds…");
 
@@ -369,4 +386,71 @@ downloadWEBM.onclick = async () => {
   const chunks = [];
   recorder.ondataavailable = (e) => chunks.push(e.data);
 
-  recorder
+  recorder.onstop = () => {
+    const blob = new Blob(chunks, { type: "video/webm" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "neon.webm";
+    a.click();
+  };
+
+  recorder.start();
+  setTimeout(() => recorder.stop(), 4000);
+};
+
+/* ------------------------------------------------------
+   OPEN OBS MODE
+------------------------------------------------------ */
+obsMode.onclick = () => {
+  window.open(obsLinkField.value, "_blank");
+};
+
+/* ------------------------------------------------------
+   WEBCAM INTEGRATION
+------------------------------------------------------ */
+async function startWebcam() {
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+    webcamVideo.srcObject = stream;
+  } catch (e) {
+    alert("Webcam access denied.");
+  }
+}
+startWebcam();
+
+/* ------------------------------------------------------
+   DRAGGABLE WEBCAM + QR CODE
+------------------------------------------------------ */
+function makeDraggable(el) {
+  let offsetX, offsetY, dragging = false;
+
+  el.addEventListener("mousedown", (e) => {
+    dragging = true;
+    offsetX = e.clientX - el.getBoundingClientRect().left;
+    offsetY = e.clientY - el.getBoundingClientRect().top;
+    el.style.cursor = "grabbing";
+  });
+
+  document.addEventListener("mousemove", (e) => {
+    if (dragging) {
+      el.style.left = e.clientX - offsetX + "px";
+      el.style.top = e.clientY - offsetY + "px";
+    }
+  });
+
+  document.addEventListener("mouseup", () => {
+    dragging = false;
+    el.style.cursor = "grab";
+  });
+}
+
+makeDraggable(webcamVideo);
+makeDraggable(qrCode);
+
+/* ------------------------------------------------------
+   INIT
+------------------------------------------------------ */
+applyBorderType();
+generateOBSLink();
+update();
