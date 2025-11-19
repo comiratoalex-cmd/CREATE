@@ -1,174 +1,316 @@
-<!DOCTYPE html>
-<html lang="en">
+/* ===========================================================
+   GLOBAL RESET
+=========================================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Neon Overlay Generator — SUPER PRO MAX ULTRA</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
+body {
+  background: #0b0b14;
+  font-family: 'Segoe UI', sans-serif;
+  overflow: hidden;
+  display: flex;
+  transition: 0.4s ease;
+  color: white;
+}
 
-<body>
+/* ===========================================================
+   LIGHT THEME
+=========================================================== */
+body.light {
+  background: #f4f4fa;
+  color: #222;
+}
 
-  <!-- BACKGROUND PARTICLES -->
-  <canvas id="particles"></canvas>
+body.light .sidebar {
+  background: rgba(255,255,255,0.7);
+  border-right: 2px solid rgba(0,0,0,0.1);
+}
 
-  <!-- COLLAPSE BUTTON -->
-  <div id="collapseBtn">☰</div>
+body.light .title-area h1 {
+  color: #222;
+}
 
-  <!-- SIDEBAR -->
-  <div class="sidebar" id="sidebar">
+body.light #preview {
+  mix-blend-mode: multiply;
+}
 
-    <div class="title-area">
-      <h1>Neon Generator</h1>
-      <h2>SUPER PRO MAX ULTRA</h2>
-    </div>
+/* ===========================================================
+   PARTICLE BACKGROUND
+=========================================================== */
+#particles {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+}
 
-    <!-- THEME SWITCH -->
-    <div class="section">
-      <label>Theme</label>
-      <button id="themeToggle">Toggle Theme</button>
-    </div>
+/* ===========================================================
+   COLLAPSE BUTTON
+=========================================================== */
+#collapseBtn {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 50;
+  color: white;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  padding: 10px 12px;
+  border-radius: 6px;
+  font-size: 22px;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  transition: 0.2s ease;
+}
 
-    <!-- COLORS -->
-    <div class="section">
-      <label>Colors</label>
-      <div class="color-grid">
-        <input type="color" id="c1" value="#ff4df2">
-        <input type="color" id="c2" value="#b96bff">
-        <input type="color" id="c3" value="#6da6ff">
-        <input type="color" id="c4" value="#20ffe7">
-        <input type="color" id="c5" value="#ffec7a">
-        <input type="color" id="c6" value="#ff9e7b">
-      </div>
-    </div>
+#collapseBtn:hover {
+  transform: scale(1.1);
+}
 
-    <!-- RGB MODES -->
-    <div class="section">
-      <label>RGB Modes</label>
-      <select id="rgbMode">
-        <option value="off">Off</option>
-        <option value="rainbow">Rainbow Smooth</option>
-        <option value="rainbowFast">Rainbow Fast</option>
-        <option value="gamer">Gamer RGB</option>
-        <option value="aurora">Aurora RGB</option>
-        <option value="ultraSlow">RGB Ultra Slow</option>
-        <option value="firestorm">Firestorm RGB</option>
-      </select>
-    </div>
+/* ===========================================================
+   SIDEBAR
+=========================================================== */
+.sidebar {
+  width: 360px;
+  height: 100vh;
+  padding: 25px;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(20px);
+  border-right: 2px solid rgba(255,255,255,0.08);
+  z-index: 5;
+  overflow-y: auto;
+  transition: 0.4s ease;
+}
 
-    <!-- PRESETS -->
-    <div class="section">
-      <label>Preset</label>
-      <select id="preset">
-        <option value="custom">Custom</option>
-        <option value="pastel">Pastel</option>
-        <option value="aurora">Aurora</option>
-        <option value="cyber">Cyberpunk</option>
-        <option value="vapor">Vaporwave</option>
-        <option value="pride">Pride</option>
-        <option value="galaxy">Galaxy</option>
-        <option value="inferno">Inferno</option>
-        <option value="ice">Ice</option>
-      </select>
-    </div>
+.sidebar.collapsed {
+  transform: translateX(-360px);
+}
 
-    <!-- EFFECTS -->
-    <div class="section">
-      <label>Neon Pulse Effect</label>
-      <select id="pulseMode">
-        <option value="off">Off</option>
-        <option value="breath">Breathing</option>
-        <option value="pulse">Pulse</option>
-        <option value="wave">Wave</option>
-        <option value="softwaves">Soft Waves</option>
-        <option value="doubleglow">Double Glow</option>
-      </select>
-    </div>
+/* ===========================================================
+   TITLE AREA
+=========================================================== */
+.title-area h1 {
+  font-size: 28px;
+  margin-bottom: -2px;
+  color: white;
+}
 
-    <!-- BORDER TYPE -->
-    <div class="section">
-      <label>Border Type</label>
-      <select id="borderType">
-        <option value="bar">Single Bar</option>
-        <option value="top">Top</option>
-        <option value="bottom">Bottom</option>
-        <option value="left">Left</option>
-        <option value="right">Right</option>
-        <option value="fullframe">360° Full Frame</option>
-      </select>
-    </div>
+.title-area h2 {
+  font-size: 14px;
+  opacity: 0.7;
+  margin-bottom: 25px;
+  color: #ccc;
+}
 
-    <!-- DIRECTION -->
-    <div class="section">
-      <label>Direction</label>
-      <select id="direction">
-        <option value="90deg">Left → Right</option>
-        <option value="270deg">Right → Left</option>
-        <option value="45deg">Diagonal ↗</option>
-        <option value="135deg">Diagonal ↘</option>
-      </select>
-    </div>
+/* ===========================================================
+   INPUT SECTIONS
+=========================================================== */
+.section {
+  margin-bottom: 28px;
+}
 
-    <!-- SPEED CONTROL -->
-    <div class="section">
-      <label>Speed (Custom)</label>
-      <input type="range" id="speedRange" min="1" max="40" value="8">
-    </div>
+label {
+  font-size: 15px;
+  opacity: 0.85;
+  display: block;
+  margin-bottom: 6px;
+}
 
-    <div class="section">
-      <label>Speed Presets</label>
-      <div class="speed-buttons">
-        <button class="speed-btn" data-speed="2">Ultra Slow</button>
-        <button class="speed-btn" data-speed="6">Slow</button>
-        <button class="speed-btn" data-speed="12">Normal</button>
-        <button class="speed-btn" data-speed="20">Fast</button>
-        <button class="speed-btn" data-speed="30">Hyper</button>
-        <button class="speed-btn" data-speed="40">Insane RGB</button>
-      </div>
-    </div>
+/* ===========================================================
+   COLOR PICKERS
+=========================================================== */
+.color-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
 
-    <!-- HEIGHT -->
-    <div class="section">
-      <label>Height (px)</label>
-      <input type="number" id="height" min="4" max="250" value="22">
-    </div>
+input[type="color"] {
+  width: 100%;
+  height: 45px;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  cursor: pointer;
+  box-shadow: 0 0 8px #000 inset;
+}
 
-    <!-- GLOW -->
-    <div class="section">
-      <label>Glow</label>
-      <input type="range" id="glow" min="0" max="50" value="18">
-    </div>
+/* ===========================================================
+   INPUTS / SELECTS / TEXT
+=========================================================== */
+select,
+input[type="range"],
+input[type="number"],
+#obsLink {
+  width: 100%;
+  padding: 10px;
+  background: #111;
+  border: 1px solid #333;
+  border-radius: 6px;
+  color: white;
+  margin-top: 4px;
+}
 
-    <!-- OBS LINK GENERATOR -->
-    <div class="section">
-      <label>OBS Link</label>
-      <input type="text" id="obsLink" readonly>
-      <button id="copyOBSLink">Copy OBS Link</button>
-    </div>
+body.light select,
+body.light input[type="range"],
+body.light input[type="number"],
+body.light #obsLink {
+  background: #fff;
+  border: 1px solid #ccc;
+  color: #111;
+}
 
-    <!-- BUTTONS -->
-    <div class="btns">
-      <button id="copyCSS">Copy CSS</button>
-      <button id="downloadPNG">Download PNG</button>
-      <button id="downloadWEBM">Export WEBM</button>
-      <button id="obsMode">OBS Mode</button>
-    </div>
+/* ===========================================================
+   BUTTONS
+=========================================================== */
+button {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 12px;
+  color: white;
+  background: linear-gradient(90deg, #ff3fbd, #6d5bff, #00eaff);
+  transition: 0.25s ease;
+}
 
-  </div>
+button:hover {
+  transform: scale(1.05);
+  filter: brightness(1.15);
+}
 
-  <!-- PREVIEW -->
-  <div class="preview-container">
-    <div id="preview"></div>
-  </div>
+body.light button {
+  color: black;
+  background: linear-gradient(90deg, #ffd0f0, #d4c9ff, #a9f7ff);
+}
 
-  <!-- WEBCAM CONTAINER -->
-  <video id="webcamVideo" autoplay playsinline muted></video>
+/* ===========================================================
+   SPEED BUTTONS
+=========================================================== */
+.speed-buttons {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
 
-  <!-- QR CODE -->
-  <img id="qrCode" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://twitch.tv/" />
+.speed-btn {
+  font-size: 14px;
+  padding: 10px;
+  border-radius: 6px;
+  background: linear-gradient(90deg, #222, #444);
+  border: 1px solid #555;
+}
 
-  <script src="script.js" defer></script>
-</body>
+.speed-btn:hover {
+  filter: brightness(1.3);
+  transform: translateY(-2px);
+}
 
-</html>
+/* ===========================================================
+   PREVIEW AREA (THE BAR)
+=========================================================== */
+.preview-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+  position: relative;
+}
+
+#preview {
+  width: 80%;
+  height: 22px;
+  border-radius: 12px;
+  background-size: 400% 400%;
+  transition: 0.25s linear;
+  box-shadow: 0 0 18px rgba(255, 0, 200, 0.6);
+  position: relative;
+}
+
+/* ===========================================================
+   360° BORDERS
+=========================================================== */
+#preview.fullframe {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  width: 100vw !important;
+  height: 100vh !important;
+  border-radius: 0 !important;
+}
+
+#preview.top,
+#preview.bottom {
+  position: fixed;
+  left: 0;
+  width: 100vw !important;
+  height: 16px !important;
+  border-radius: 0 !important;
+}
+
+#preview.top { top: 0; }
+#preview.bottom { bottom: 0; }
+
+#preview.left,
+#preview.right {
+  position: fixed;
+  top: 0;
+  height: 100vh !important;
+  width: 16px !important;
+  border-radius: 0 !important;
+}
+
+#preview.left { left: 0; }
+#preview.right { right: 0; }
+
+/* ===========================================================
+   WEBCAM BOX (DRAGGABLE)
+=========================================================== */
+#webcamVideo {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 300px;
+  height: auto;
+  z-index: 10;
+  border-radius: 18px;
+  box-shadow: 0 0 25px rgba(255,0,255,0.6),
+              0 0 50px rgba(0,255,255,0.6);
+  backdrop-filter: blur(6px);
+  cursor: grab;
+  transition: 0.25s ease;
+  border: 3px solid rgba(255,255,255,0.15);
+}
+
+#webcamVideo:active {
+  cursor: grabbing;
+  transform: scale(0.98);
+}
+
+/* ===========================================================
+   QR CODE (DRAGGABLE)
+=========================================================== */
+#qrCode {
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  width: 120px;
+  height: 120px;
+  z-index: 12;
+  opacity: 0.9;
+  cursor: grab;
+  transition: 0.25s ease;
+  border-radius: 12px;
+  box-shadow: 0 0 18px rgba(0,255,180,0.6);
+}
+
+#qrCode:active {
+  cursor: grabbing;
+  transform: scale(0.95);
+}
