@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Neon Overlay Generator — SUPER PRO</title>
+  <title>Neon Overlay Generator — SUPER PRO MAX</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 
@@ -12,15 +12,26 @@
 <!-- PARTICLE BACKGROUND -->
 <canvas id="particles"></canvas>
 
+<!-- COLLAPSE BUTTON -->
+<div id="collapseBtn">☰</div>
+
 <!-- SIDEBAR SUPER PRO -->
-<div class="sidebar">
+<div class="sidebar" id="sidebar">
+
   <div class="title-area">
     <h1>Neon Generator</h1>
-    <h2>SUPER PRO EDITION</h2>
+    <h2>SUPER PRO MAX</h2>
   </div>
 
+  <!-- THEME SWITCH -->
   <div class="section">
-    <label>Colors (up to 6)</label>
+    <label>Theme</label>
+    <button id="themeToggle">Toggle Theme</button>
+  </div>
+
+  <!-- COLORS -->
+  <div class="section">
+    <label>Colors</label>
     <div class="color-grid">
       <input type="color" id="c1" value="#ff4df2">
       <input type="color" id="c2" value="#b96bff">
@@ -31,8 +42,21 @@
     </div>
   </div>
 
+  <!-- RGB MODES -->
   <div class="section">
-    <label>Presets</label>
+    <label>RGB Modes</label>
+    <select id="rgbMode">
+      <option value="off">Off</option>
+      <option value="rainbow">Rainbow Smooth</option>
+      <option value="rainbowFast">Rainbow Fast</option>
+      <option value="gamer">Gamer RGB</option>
+      <option value="aurora">Aurora RGB</option>
+    </select>
+  </div>
+
+  <!-- PRESETS -->
+  <div class="section">
+    <label>Preset</label>
     <select id="preset">
       <option value="custom">Custom</option>
       <option value="aurora">Aurora</option>
@@ -45,6 +69,31 @@
     </select>
   </div>
 
+  <!-- EFFECTS -->
+  <div class="section">
+    <label>Neon Pulse Effect</label>
+    <select id="pulseMode">
+      <option value="off">Off</option>
+      <option value="breath">Breathing</option>
+      <option value="pulse">Pulse</option>
+      <option value="wave">Wave</option>
+    </select>
+  </div>
+
+  <!-- BORDER TYPE -->
+  <div class="section">
+    <label>Border Type</label>
+    <select id="borderType">
+      <option value="bar">Single Bar</option>
+      <option value="top">Top Border</option>
+      <option value="bottom">Bottom Border</option>
+      <option value="left">Left Border</option>
+      <option value="right">Right Border</option>
+      <option value="fullframe">360º Frame</option>
+    </select>
+  </div>
+
+  <!-- CONTROLS -->
   <div class="section">
     <label>Direction</label>
     <select id="direction">
@@ -70,9 +119,11 @@
     <input type="number" id="height" min="4" max="250" value="22">
   </div>
 
+  <!-- BUTTONS -->
   <div class="btns">
     <button id="copyCSS">Copy CSS</button>
     <button id="downloadPNG">Download PNG</button>
+    <button id="downloadWEBM">Export WEBM</button>
     <button id="obsMode">OBS Mode</button>
   </div>
 </div>
