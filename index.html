@@ -3,86 +3,85 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Neon Overlay Generator PRO</title>
+  <title>Neon Overlay Generator — SUPER PRO</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
 
-<script>
-  // Detecta modo OBS
-  const isOBS = window.location.search.includes("obs=1");
+<!-- PARTICLE BACKGROUND -->
+<canvas id="particles"></canvas>
 
-  if (isOBS) {
-    document.body.innerHTML = `
-      <div id="preview"></div>
-    `;
-  }
-</script>
-
-<!-- INTERFACE NORMAL -->
-<div id="app" style="display: none;">
-  <div class="sidebar">
-    <img src="assets/logo.png" class="logo" />
-
-    <h2>Neon Overlay Generator PRO</h2>
-
-    <div class="section">
-      <label>Colors</label>
-      <input type="color" id="c1" value="#ff6ad5">
-      <input type="color" id="c2" value="#b96bff">
-      <input type="color" id="c3" value="#6da6ff">
-      <input type="color" id="c4" value="#3dfff2">
-      <input type="color" id="c5" value="#ffec8a">
-      <input type="color" id="c6" value="#ff9e7b">
-    </div>
-
-    <div class="section">
-      <label>Preset</label>
-      <select id="preset">
-        <option value="custom">Custom</option>
-        <option value="aurora">Aurora</option>
-        <option value="pastel">Pastel</option>
-        <option value="cyber">Cyberpunk</option>
-        <option value="pride">Pride</option>
-        <option value="fog">DBD Fog</option>
-      </select>
-    </div>
-
-    <div class="section">
-      <label>Direction</label>
-      <select id="direction">
-        <option value="90deg">Left → Right</option>
-        <option value="270deg">Right → Left</option>
-      </select>
-    </div>
-
-    <div class="section">
-      <label>Speed</label>
-      <input type="range" id="speedRange" min="1" max="20" value="6">
-    </div>
-
-    <div class="section">
-      <label>Height</label>
-      <input type="number" id="height" min="4" max="300" value="20">
-    </div>
-
-    <button id="obsMode">OBS Mode</button>
+<!-- SIDEBAR SUPER PRO -->
+<div class="sidebar">
+  <div class="title-area">
+    <h1>Neon Generator</h1>
+    <h2>SUPER PRO EDITION</h2>
   </div>
 
-  <div class="preview-area">
-    <div id="preview"></div>
+  <div class="section">
+    <label>Colors (up to 6)</label>
+    <div class="color-grid">
+      <input type="color" id="c1" value="#ff4df2">
+      <input type="color" id="c2" value="#b96bff">
+      <input type="color" id="c3" value="#6da6ff">
+      <input type="color" id="c4" value="#20ffe7">
+      <input type="color" id="c5" value="#ffec7a">
+      <input type="color" id="c6" value="#ff9e7b">
+    </div>
+  </div>
+
+  <div class="section">
+    <label>Presets</label>
+    <select id="preset">
+      <option value="custom">Custom</option>
+      <option value="aurora">Aurora</option>
+      <option value="cyber">Cyberpunk</option>
+      <option value="vapor">Vaporwave</option>
+      <option value="pride">Pride</option>
+      <option value="galaxy">Galaxy</option>
+      <option value="inferno">Inferno</option>
+      <option value="ice">Ice</option>
+    </select>
+  </div>
+
+  <div class="section">
+    <label>Direction</label>
+    <select id="direction">
+      <option value="90deg">Left → Right</option>
+      <option value="270deg">Right → Left</option>
+      <option value="45deg">Diagonal ↗</option>
+      <option value="135deg">Diagonal ↘</option>
+    </select>
+  </div>
+
+  <div class="section">
+    <label>Speed</label>
+    <input type="range" id="speedRange" min="1" max="40" value="8">
+  </div>
+
+  <div class="section">
+    <label>Glow</label>
+    <input type="range" id="glow" min="0" max="50" value="18">
+  </div>
+
+  <div class="section">
+    <label>Height (px)</label>
+    <input type="number" id="height" min="4" max="250" value="22">
+  </div>
+
+  <div class="btns">
+    <button id="copyCSS">Copy CSS</button>
+    <button id="downloadPNG">Download PNG</button>
+    <button id="obsMode">OBS Mode</button>
   </div>
 </div>
 
+<!-- PREVIEW SUPER PRO -->
+<div class="preview-container">
+  <div id="preview"></div>
+</div>
+
 <script src="script.js" defer></script>
-
-<script>
-  // Se NÃO for OBS, mostrar interface
-  if (!window.location.search.includes("obs=1")) {
-    document.getElementById("app").style.display = "flex";
-  }
-</script>
-
 </body>
 </html>
