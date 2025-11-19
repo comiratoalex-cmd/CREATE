@@ -3,15 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Neon Overlay Generator</title>
+  <title>Neon Overlay Generator PRO</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
   <div class="sidebar">
+
     <img src="assets/logo.png" class="logo" />
 
-    <h2>Neon Overlay Generator</h2>
+    <h2>Neon Overlay Generator PRO</h2>
 
     <!-- COLORS -->
     <div class="section">
@@ -34,10 +35,14 @@
         <option value="cyber">Cyberpunk</option>
         <option value="pride">Pride</option>
         <option value="fog">DBD Fog Glow</option>
+        <option value="vaporwave">Vaporwave</option>
+        <option value="galaxy">Galaxy Pulse</option>
+        <option value="inferno">Inferno</option>
+        <option value="ice">Ice Beam</option>
+        <option value="toxic">Toxic Green</option>
       </select>
     </div>
 
-    <!-- DIRECTION -->
     <div class="section">
       <label>Direction</label>
       <select id="direction">
@@ -52,17 +57,36 @@
 
     <!-- SPEED -->
     <div class="section">
-      <label>Speed (smooth animation)</label>
+      <label>Speed (smooth)</label>
       <input type="range" id="speedRange" min="1" max="20" value="6">
     </div>
 
-    <!-- GLOW -->
+    <!-- EXTRA CONTROLS -->
     <div class="section">
       <label>Glow intensity</label>
-      <input type="range" id="glow" min="0" max="40" value="12">
+      <input type="range" id="glow" min="0" max="40" value="14">
     </div>
 
-    <!-- HEIGHT -->
+    <div class="section">
+      <label>Opacity</label>
+      <input type="range" id="opacity" min="10" max="100" value="100">
+    </div>
+
+    <div class="section">
+      <label>Brightness</label>
+      <input type="range" id="brightness" min="50" max="200" value="100">
+    </div>
+
+    <div class="section">
+      <label>Saturation</label>
+      <input type="range" id="saturation" min="0" max="200" value="100">
+    </div>
+
+    <div class="section">
+      <label>Blur Glow</label>
+      <input type="range" id="blur" min="0" max="40" value="0">
+    </div>
+
     <div class="section">
       <label>Height (px)</label>
       <input type="number" id="height" min="4" max="300" value="20">
@@ -72,14 +96,15 @@
     <button id="copyCSS">📋 Copy CSS</button>
     <button id="downloadPNG">🖼 Download PNG</button>
     <button id="downloadWEBM">🎞 Download WEBM</button>
+    <button id="obsMode">🎬 OBS Fullscreen Mode</button>
   </div>
 
-  <!-- PREVIEW -->
   <div class="preview-area">
     <div id="preview"></div>
     <div class="fullscreen-btn" onclick="toggleFullscreen()">⛶</div>
   </div>
 
   <script src="script.js"></script>
+
 </body>
 </html>
