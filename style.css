@@ -34,7 +34,8 @@ label {
   margin-bottom: 6px;
 }
 
-input, select {
+input,
+select {
   width: 100%;
   padding: 8px;
   border-radius: 6px;
@@ -52,7 +53,7 @@ input[type="color"] {
 
 button {
   width: 100%;
-  background: linear-gradient(90deg,#ff3fbd,#5f65ff,#00eaff);
+  background: linear-gradient(90deg, #ff3fbd, #5f65ff, #00eaff);
   padding: 12px;
   border: none;
   border-radius: 6px;
@@ -66,7 +67,7 @@ button {
 
 button:hover {
   transform: scale(1.05);
-  opacity: .85;
+  opacity: 0.85;
 }
 
 .preview-area {
@@ -90,8 +91,8 @@ button:hover {
   position: absolute;
   top: 20px;
   right: 25px;
-  background: rgba(255,255,255,0.1);
-  border: 1px solid rgba(255,255,255,0.2);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 6px;
   padding: 10px 16px;
   cursor: pointer;
