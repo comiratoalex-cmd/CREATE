@@ -13,10 +13,11 @@ body {
   overflow: hidden;
   display: flex;
   transition: 0.4s ease;
+  color: white;
 }
 
 /* --------------------------------
-   LIGHT / DARK THEMES
+   LIGHT THEME
 --------------------------------*/
 body.light {
   background: #f4f4fa;
@@ -46,7 +47,7 @@ body.light #preview {
 }
 
 /* -------------------------------
-   COLLAPSE SIDEBAR BUTTON
+   COLLAPSE BUTTON
 --------------------------------*/
 #collapseBtn {
   position: absolute;
@@ -69,7 +70,7 @@ body.light #preview {
 }
 
 /* -------------------------------
-   SIDEBAR SUPER PRO
+   SIDEBAR
 --------------------------------*/
 .sidebar {
   width: 360px;
@@ -87,10 +88,13 @@ body.light #preview {
   transform: translateX(-360px);
 }
 
+/* -------------------------------
+   SIDEBAR TITLE
+--------------------------------*/
 .title-area h1 {
   font-size: 28px;
   margin-bottom: -2px;
-  color: #fff;
+  color: white;
 }
 
 .title-area h2 {
@@ -100,6 +104,9 @@ body.light #preview {
   color: #ccc;
 }
 
+/* -------------------------------
+   SECTIONS
+--------------------------------*/
 .section {
   margin-bottom: 28px;
 }
@@ -135,7 +142,8 @@ input[type="color"] {
 --------------------------------*/
 select,
 input[type="range"],
-input[type="number"] {
+input[type="number"],
+#obsLink {
   width: 100%;
   padding: 10px;
   background: #111;
@@ -147,7 +155,8 @@ input[type="number"] {
 
 body.light select,
 body.light input[type="range"],
-body.light input[type="number"] {
+body.light input[type="number"],
+body.light #obsLink {
   background: #fff;
   border: 1px solid #ccc;
   color: #111;
@@ -199,14 +208,18 @@ body.light button {
   background-size: 400% 400%;
   transition: 0.25s linear;
   box-shadow: 0 0 18px rgba(255, 0, 200, 0.6);
+  position: relative;
 }
 
 /* -------------------------------
-   360º FULL FRAME BORDER
+   360° FULL FRAME BORDERS
 --------------------------------*/
+
+/* FULL FRAME */
 #preview.fullframe {
-  position: fixed;
-  top: 0; left: 0;
+  position: fixed !important;
+  top: 0;
+  left: 0;
   width: 100vw !important;
   height: 100vh !important;
   border-radius: 0 !important;
@@ -214,34 +227,40 @@ body.light button {
 
 /* TOP */
 #preview.top {
-  width: 100%;
-  height: 12px;
+  width: 100vw !important;
+  height: 14px !important;
   border-radius: 0;
+  top: 0;
+  left: 0;
+  position: fixed;
 }
 
 /* BOTTOM */
 #preview.bottom {
-  width: 100%;
-  height: 12px;
+  width: 100vw !important;
+  height: 14px !important;
   border-radius: 0;
-  position: absolute;
   bottom: 0;
+  left: 0;
+  position: fixed;
 }
 
 /* LEFT */
 #preview.left {
-  width: 12px;
-  height: 100%;
+  width: 14px !important;
+  height: 100vh !important;
   border-radius: 0;
-  position: absolute;
+  top: 0;
   left: 0;
+  position: fixed;
 }
 
 /* RIGHT */
 #preview.right {
-  width: 12px;
-  height: 100%;
+  width: 14px !important;
+  height: 100vh !important;
   border-radius: 0;
-  position: absolute;
+  top: 0;
   right: 0;
+  position: fixed;
 }
