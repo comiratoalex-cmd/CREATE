@@ -5,36 +5,22 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  user-select: none;
 }
 
 body {
-  background: #0b0b14;
-  font-family: 'Segoe UI', sans-serif;
-  overflow: hidden;
-  display: flex;
-  transition: 0.4s ease;
+  background: #0a0a13;
+  font-family: "Segoe UI", sans-serif;
   color: white;
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+  transition: 0.3s ease;
 }
 
-/* ===========================================================
-   LIGHT THEME
-=========================================================== */
 body.light {
-  background: #f4f4fa;
+  background: #f6f6fb;
   color: #222;
-}
-
-body.light .sidebar {
-  background: rgba(255,255,255,0.7);
-  border-right: 2px solid rgba(0,0,0,0.1);
-}
-
-body.light .title-area h1 {
-  color: #222;
-}
-
-body.light #preview {
-  mix-blend-mode: multiply;
 }
 
 /* ===========================================================
@@ -47,22 +33,39 @@ body.light #preview {
 }
 
 /* ===========================================================
-   COLLAPSE BUTTON
+   SIDEBAR
 =========================================================== */
+#sidebar {
+  position: relative;
+  width: 360px;
+  height: 100vh;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(20px);
+  padding: 25px;
+  overflow-y: auto;
+  border-right: 2px solid rgba(255,255,255,0.12);
+  z-index: 5;
+  transition: 0.3s ease;
+}
+
+#sidebar.collapsed {
+  transform: translateX(-360px);
+}
+
+/* COLLAPSE BUTTON */
 #collapseBtn {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  z-index: 50;
-  color: white;
+  position: fixed;
+  top: 18px;
+  left: 18px;
+  z-index: 99;
+  font-size: 26px;
+  padding: 10px 14px;
   background: rgba(255,255,255,0.1);
   border: 1px solid rgba(255,255,255,0.2);
-  padding: 10px 12px;
+  backdrop-filter: blur(12px);
   border-radius: 6px;
-  font-size: 22px;
   cursor: pointer;
-  backdrop-filter: blur(10px);
-  transition: 0.2s ease;
+  transition: 0.25s ease;
 }
 
 #collapseBtn:hover {
@@ -70,57 +73,66 @@ body.light #preview {
 }
 
 /* ===========================================================
-   SIDEBAR
-=========================================================== */
-.sidebar {
-  width: 360px;
-  height: 100vh;
-  padding: 25px;
-  background: rgba(255,255,255,0.05);
-  backdrop-filter: blur(20px);
-  border-right: 2px solid rgba(255,255,255,0.08);
-  z-index: 5;
-  overflow-y: auto;
-  transition: 0.4s ease;
-}
-
-.sidebar.collapsed {
-  transform: translateX(-360px);
-}
-
-/* ===========================================================
    TITLE AREA
 =========================================================== */
-.title-area h1 {
-  font-size: 28px;
-  margin-bottom: -2px;
-  color: white;
+.title {
+  text-align: center;
+  margin-bottom: 22px;
 }
 
-.title-area h2 {
+.title .logo {
+  width: 90px;
+  opacity: 0.75;
+  margin-bottom: 15px;
+}
+
+.title h1 {
+  font-size: 20px;
+  margin-bottom: 4px;
+}
+
+.title p {
+  opacity: 0.6;
   font-size: 14px;
-  opacity: 0.7;
-  margin-bottom: 25px;
-  color: #ccc;
 }
 
 /* ===========================================================
-   INPUT SECTIONS
+   SIDEBAR INPUT GROUPS
 =========================================================== */
-.section {
-  margin-bottom: 28px;
+section {
+  margin-bottom: 25px;
 }
 
 label {
   font-size: 15px;
-  opacity: 0.85;
-  display: block;
   margin-bottom: 6px;
+  display: block;
+  opacity: 0.85;
 }
 
-/* ===========================================================
-   COLOR PICKERS
-=========================================================== */
+select,
+input[type="range"],
+input[type="number"],
+input[type="file"],
+#obsLink {
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+  background: #111;
+  border: 1px solid #333;
+  color: white;
+  margin-top: 5px;
+}
+
+body.light select,
+body.light input[type="range"],
+body.light input[type="file"],
+body.light #obsLink {
+  background: #fff;
+  border: 1px solid #bbb;
+  color: #222;
+}
+
 .color-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -129,37 +141,10 @@ label {
 
 input[type="color"] {
   width: 100%;
-  height: 45px;
+  height: 46px;
+  border-radius: 6px;
   border: none;
-  border-radius: 6px;
-  background: transparent;
   cursor: pointer;
-  box-shadow: 0 0 8px #000 inset;
-}
-
-/* ===========================================================
-   INPUTS / SELECTS / TEXT
-=========================================================== */
-select,
-input[type="range"],
-input[type="number"],
-#obsLink {
-  width: 100%;
-  padding: 10px;
-  background: #111;
-  border: 1px solid #333;
-  border-radius: 6px;
-  color: white;
-  margin-top: 4px;
-}
-
-body.light select,
-body.light input[type="range"],
-body.light input[type="number"],
-body.light #obsLink {
-  background: #fff;
-  border: 1px solid #ccc;
-  color: #111;
 }
 
 /* ===========================================================
@@ -168,149 +153,95 @@ body.light #obsLink {
 button {
   width: 100%;
   padding: 14px;
+  margin-top: 12px;
   border: none;
   border-radius: 8px;
-  font-size: 16px;
-  font-weight: bold;
   cursor: pointer;
-  margin-top: 12px;
-  color: white;
+  font-weight: bold;
   background: linear-gradient(90deg, #ff3fbd, #6d5bff, #00eaff);
+  color: white;
   transition: 0.25s ease;
 }
 
 button:hover {
   transform: scale(1.05);
-  filter: brightness(1.15);
+  filter: brightness(1.2);
+}
+
+.actions button {
+  margin-bottom: 10px;
 }
 
 body.light button {
   color: black;
-  background: linear-gradient(90deg, #ffd0f0, #d4c9ff, #a9f7ff);
+  background: linear-gradient(90deg, #ffd8f7, #d5c7ff, #b0f6ff);
 }
 
 /* ===========================================================
-   SPEED BUTTONS
+   PREVIEW AREA
 =========================================================== */
-.speed-buttons {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 8px;
-}
-
-.speed-btn {
-  font-size: 14px;
-  padding: 10px;
-  border-radius: 6px;
-  background: linear-gradient(90deg, #222, #444);
-  border: 1px solid #555;
-}
-
-.speed-btn:hover {
-  filter: brightness(1.3);
-  transform: translateY(-2px);
-}
-
-/* ===========================================================
-   PREVIEW AREA (THE BAR)
-=========================================================== */
-.preview-container {
+#previewArea {
   flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 2;
   position: relative;
+  z-index: 2;
 }
 
+/* ===========================================================
+   MAIN PREVIEW ITEM
+=========================================================== */
 #preview {
-  width: 80%;
-  height: 22px;
-  border-radius: 12px;
+  position: absolute;
   background-size: 400% 400%;
   transition: 0.25s linear;
-  box-shadow: 0 0 18px rgba(255, 0, 200, 0.6);
-  position: relative;
+  box-shadow: 0 0 25px rgba(255, 0, 200, 0.55);
+}
+
+/* ========== LINE MODE ========== */
+#lineMode {
+  height: 18px;
+}
+
+/* ========== RECTANGLE MODE ========== */
+#preview.rectangle {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  border-radius: 0;
+}
+
+/* ========== ELLIPSE MODE ========== */
+#preview.ellipse {
+  width: 450px;
+  height: 450px;
+  border-radius: 50%;
+  border-width: 10px;
+  border-style: solid;
 }
 
 /* ===========================================================
-   360° BORDERS
+   PNG CANVAS (CUSTOM BORDERS)
 =========================================================== */
-#preview.fullframe {
-  position: fixed !important;
+#pngCanvas {
+  position: absolute;
   top: 0;
   left: 0;
-  width: 100vw !important;
-  height: 100vh !important;
-  border-radius: 0 !important;
-}
-
-#preview.top,
-#preview.bottom {
-  position: fixed;
-  left: 0;
-  width: 100vw !important;
-  height: 16px !important;
-  border-radius: 0 !important;
-}
-
-#preview.top { top: 0; }
-#preview.bottom { bottom: 0; }
-
-#preview.left,
-#preview.right {
-  position: fixed;
-  top: 0;
-  height: 100vh !important;
-  width: 16px !important;
-  border-radius: 0 !important;
-}
-
-#preview.left { left: 0; }
-#preview.right { right: 0; }
-
-/* ===========================================================
-   WEBCAM BOX (DRAGGABLE)
-=========================================================== */
-#webcamVideo {
-  position: fixed;
-  bottom: 30px;
-  right: 30px;
-  width: 300px;
-  height: auto;
-  z-index: 10;
-  border-radius: 18px;
-  box-shadow: 0 0 25px rgba(255,0,255,0.6),
-              0 0 50px rgba(0,255,255,0.6);
-  backdrop-filter: blur(6px);
-  cursor: grab;
-  transition: 0.25s ease;
-  border: 3px solid rgba(255,255,255,0.15);
-}
-
-#webcamVideo:active {
-  cursor: grabbing;
-  transform: scale(0.98);
+  z-index: 3;
+  pointer-events: none;
 }
 
 /* ===========================================================
-   QR CODE (DRAGGABLE)
+   LIGHT THEME OVERRIDES
 =========================================================== */
-#qrCode {
-  position: fixed;
-  top: 15px;
-  right: 15px;
-  width: 120px;
-  height: 120px;
-  z-index: 12;
-  opacity: 0.9;
-  cursor: grab;
-  transition: 0.25s ease;
-  border-radius: 12px;
-  box-shadow: 0 0 18px rgba(0,255,180,0.6);
+body.light #sidebar {
+  background: rgba(255,255,255,0.75);
+  border-right: 1px solid rgba(0,0,0,0.15);
 }
 
-#qrCode:active {
-  cursor: grabbing;
-  transform: scale(0.95);
+body.light #preview {
+  mix-blend-mode: multiply;
 }
+
