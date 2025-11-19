@@ -1,3 +1,6 @@
+/* -------------------------------
+   GLOBAL RESET
+--------------------------------*/
 * {
   margin: 0;
   padding: 0;
@@ -5,40 +8,96 @@
 }
 
 body {
-  background: #0a0a14;
-  overflow: hidden;
+  background: #0b0b14;
   font-family: 'Segoe UI', sans-serif;
-  color: white;
+  overflow: hidden;
   display: flex;
+  transition: 0.4s ease;
 }
 
-/* 🔹 PARTICLES BACKGROUND */
+/* --------------------------------
+   LIGHT / DARK THEMES
+--------------------------------*/
+body.light {
+  background: #f4f4fa;
+  color: #222;
+}
+
+body.light .sidebar {
+  background: rgba(255,255,255,0.7);
+  border-right: 2px solid rgba(0,0,0,0.1);
+}
+
+body.light .title-area h1 {
+  color: #222;
+}
+
+body.light #preview {
+  mix-blend-mode: multiply;
+}
+
+/* -------------------------------
+   PARTICLE BACKGROUND
+--------------------------------*/
 #particles {
   position: fixed;
   inset: 0;
   z-index: 0;
 }
 
-/* 🔹 SIDEBAR SUPER PRO */
+/* -------------------------------
+   COLLAPSE SIDEBAR BUTTON
+--------------------------------*/
+#collapseBtn {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 50;
+  color: white;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  padding: 10px 12px;
+  border-radius: 6px;
+  font-size: 22px;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  transition: 0.2s ease;
+}
+
+#collapseBtn:hover {
+  transform: scale(1.1);
+}
+
+/* -------------------------------
+   SIDEBAR SUPER PRO
+--------------------------------*/
 .sidebar {
   width: 360px;
+  height: 100vh;
   padding: 25px;
+  background: rgba(255,255,255,0.05);
   backdrop-filter: blur(20px);
-  background: rgba(255,255,255,0.03);
-  border-right: 2px solid rgba(255,255,255,0.06);
-  z-index: 10;
+  border-right: 2px solid rgba(255,255,255,0.08);
+  z-index: 5;
   overflow-y: auto;
+  transition: 0.4s ease;
+}
+
+.sidebar.collapsed {
+  transform: translateX(-360px);
 }
 
 .title-area h1 {
-  font-size: 26px;
+  font-size: 28px;
   margin-bottom: -2px;
+  color: #fff;
 }
 
 .title-area h2 {
   font-size: 14px;
   opacity: 0.7;
   margin-bottom: 25px;
+  color: #ccc;
 }
 
 .section {
@@ -47,11 +106,14 @@ body {
 
 label {
   font-size: 15px;
-  opacity: 0.8;
+  opacity: 0.85;
   display: block;
   margin-bottom: 6px;
 }
 
+/* -------------------------------
+   COLOR GRID
+--------------------------------*/
 .color-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -61,48 +123,73 @@ label {
 input[type="color"] {
   width: 100%;
   height: 45px;
-  border-radius: 6px;
   border: none;
-  cursor: pointer;
+  border-radius: 6px;
   background: transparent;
+  cursor: pointer;
+  box-shadow: 0 0 8px #000 inset;
 }
 
+/* -------------------------------
+   INPUTS & SELECTS
+--------------------------------*/
 select,
-input[type="number"],
-input[type="range"] {
+input[type="range"],
+input[type="number"] {
   width: 100%;
   padding: 10px;
-  border-radius: 6px;
   background: #111;
   border: 1px solid #333;
+  border-radius: 6px;
   color: white;
+  margin-top: 4px;
 }
 
-/* 🔹 BUTTONS */
+body.light select,
+body.light input[type="range"],
+body.light input[type="number"] {
+  background: #fff;
+  border: 1px solid #ccc;
+  color: #111;
+}
+
+/* -------------------------------
+   BUTTONS
+--------------------------------*/
 button {
   width: 100%;
   padding: 14px;
   border: none;
-  margin-top: 12px;
   border-radius: 8px;
   font-size: 16px;
   font-weight: bold;
   cursor: pointer;
+  margin-top: 12px;
+  color: white;
   background: linear-gradient(90deg, #ff3fbd, #6d5bff, #00eaff);
-  transition: 0.2s;
+  transition: 0.25s ease;
 }
 
 button:hover {
   transform: scale(1.05);
+  filter: brightness(1.2);
 }
 
-/* 🔹 PREVIEW SUPER PRO */
+body.light button {
+  color: black;
+  background: linear-gradient(90deg, #ffd0f0, #d4c9ff, #a9f7ff);
+}
+
+/* -------------------------------
+   PREVIEW AREA
+--------------------------------*/
 .preview-container {
   flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 5;
+  z-index: 2;
+  position: relative;
 }
 
 #preview {
@@ -110,5 +197,51 @@ button:hover {
   height: 22px;
   border-radius: 12px;
   background-size: 400% 400%;
-  transition: 0.2s linear;
+  transition: 0.25s linear;
+  box-shadow: 0 0 18px rgba(255, 0, 200, 0.6);
+}
+
+/* -------------------------------
+   360º FULL FRAME BORDER
+--------------------------------*/
+#preview.fullframe {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw !important;
+  height: 100vh !important;
+  border-radius: 0 !important;
+}
+
+/* TOP */
+#preview.top {
+  width: 100%;
+  height: 12px;
+  border-radius: 0;
+}
+
+/* BOTTOM */
+#preview.bottom {
+  width: 100%;
+  height: 12px;
+  border-radius: 0;
+  position: absolute;
+  bottom: 0;
+}
+
+/* LEFT */
+#preview.left {
+  width: 12px;
+  height: 100%;
+  border-radius: 0;
+  position: absolute;
+  left: 0;
+}
+
+/* RIGHT */
+#preview.right {
+  width: 12px;
+  height: 100%;
+  border-radius: 0;
+  position: absolute;
+  right: 0;
 }
