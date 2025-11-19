@@ -1,100 +1,114 @@
-body {
+* {
   margin: 0;
-  background: #05050a;
-  font-family: 'Segoe UI', sans-serif;
-  display: flex;
-  height: 100vh;
-  overflow: hidden;
-  color: white;
+  padding: 0;
+  box-sizing: border-box;
 }
 
+body {
+  background: #0a0a14;
+  overflow: hidden;
+  font-family: 'Segoe UI', sans-serif;
+  color: white;
+  display: flex;
+}
+
+/* 🔹 PARTICLES BACKGROUND */
+#particles {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+}
+
+/* 🔹 SIDEBAR SUPER PRO */
 .sidebar {
-  width: 340px;
-  background: rgba(15, 15, 25, 0.92);
-  backdrop-filter: blur(14px);
-  border-right: 2px solid rgba(255,255,255,0.05);
-  padding: 22px;
+  width: 360px;
+  padding: 25px;
+  backdrop-filter: blur(20px);
+  background: rgba(255,255,255,0.03);
+  border-right: 2px solid rgba(255,255,255,0.06);
+  z-index: 10;
   overflow-y: auto;
 }
 
-.logo {
-  width: 140px;
-  margin-bottom: 18px;
-  filter: drop-shadow(0 0 12px #ff4df2);
+.title-area h1 {
+  font-size: 26px;
+  margin-bottom: -2px;
+}
+
+.title-area h2 {
+  font-size: 14px;
+  opacity: 0.7;
+  margin-bottom: 25px;
 }
 
 .section {
-  margin-bottom: 22px;
+  margin-bottom: 28px;
 }
 
 label {
-  font-size: 14px;
+  font-size: 15px;
   opacity: 0.8;
   display: block;
   margin-bottom: 6px;
 }
 
-input,
-select {
+.color-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+input[type="color"] {
   width: 100%;
-  padding: 8px;
+  height: 45px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  background: transparent;
+}
+
+select,
+input[type="number"],
+input[type="range"] {
+  width: 100%;
+  padding: 10px;
   border-radius: 6px;
   background: #111;
   border: 1px solid #333;
   color: white;
-  margin-bottom: 10px;
 }
 
-input[type="color"] {
-  padding: 0;
-  height: 40px;
-  cursor: pointer;
-}
-
+/* 🔹 BUTTONS */
 button {
   width: 100%;
-  background: linear-gradient(90deg, #ff3fbd, #5f65ff, #00eaff);
-  padding: 12px;
+  padding: 14px;
   border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 16px;
   margin-top: 12px;
-  color: white;
+  border-radius: 8px;
+  font-size: 16px;
   font-weight: bold;
+  cursor: pointer;
+  background: linear-gradient(90deg, #ff3fbd, #6d5bff, #00eaff);
   transition: 0.2s;
 }
 
 button:hover {
   transform: scale(1.05);
-  opacity: 0.85;
 }
 
-.preview-area {
+/* 🔹 PREVIEW SUPER PRO */
+.preview-container {
   flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
-  position: relative;
+  z-index: 5;
 }
 
 #preview {
-  width: 90%;
-  height: 20px;
-  border-radius: 10px;
+  width: 80%;
+  height: 22px;
+  border-radius: 12px;
   background-size: 400% 400%;
-  filter: brightness(1) saturate(1);
-  transition: 0.15s linear;
-}
-
-.fullscreen-btn {
-  position: absolute;
-  top: 20px;
-  right: 25px;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 6px;
-  padding: 10px 16px;
-  cursor: pointer;
-  font-size: 20px;
+  transition: 0.2s linear;
 }
