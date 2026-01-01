@@ -1,9 +1,15 @@
 const state = {
   neon:'#00eaff',
-  glow:60,
+  glow:80,
   speed:3,
+
+  strokeMin:3,
+  strokeMax:6,
+
+  glowMin:0.6,
+  glowMax:1.2,
+
   pulse:true,
-  pulseMax:2.4,
   obs:false
 };
 
@@ -19,7 +25,12 @@ function apply(){
   root.style.setProperty('--neon',state.neon);
   root.style.setProperty('--glow',state.glow+'px');
   root.style.setProperty('--pulseSpeed',state.speed+'s');
-  root.style.setProperty('--pulseMax',state.pulseMax);
+
+  root.style.setProperty('--strokeMin',state.strokeMin+'px');
+  root.style.setProperty('--strokeMax',state.strokeMax+'px');
+
+  root.style.setProperty('--pulseGlowMin',state.glowMin);
+  root.style.setProperty('--pulseGlowMax',state.glowMax);
 
   overlay.classList.toggle('pulse-on',state.pulse);
   document.body.classList.toggle('obs-mode',state.obs);
