@@ -11,13 +11,20 @@
 
 .panel label{
   font-size:13px;
-  opacity:.8;
+  opacity:.85;
 }
 
 .panel input,
 .panel button{
   width:100%;
   margin-bottom:14px;
+}
+
+.panel input[type="color"]{
+  height:42px;
+  border:none;
+  padding:0;
+  cursor:pointer;
 }
 
 .panel button{
