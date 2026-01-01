@@ -1,47 +1,30 @@
 const PRESETS = {
-  tokyo:{
-    neon:'#00eaff',
-    glow:90,
-    speed:2.4,
-    strokeMin:3,
-    strokeMax:6,
-    glowMin:0.6,
-    glowMax:1.3
+  pastel:{
+    colors:['#ffb7ff','#ffd6ff','#cdb4db','#ffc8dd'],
+    baseGlow:60,
+    glowRange:40,
+    baseSpeed:4.5,
+    speedRange:2
+  },
+  selva:{
+    colors:['#1b5e20','#4caf50','#8bc34a','#cddc39'],
+    baseGlow:80,
+    glowRange:90,
+    baseSpeed:3,
+    speedRange:3
   },
   aurora:{
-    neon:'#7cffc7',
-    glow:110,
-    speed:3.5,
-    strokeMin:3,
-    strokeMax:7,
-    glowMin:0.7,
-    glowMax:1.5
-  },
-  pastel:{
-    neon:'#ffb7ff',
-    glow:65,
-    speed:4.8,
-    strokeMin:2,
-    strokeMax:4,
-    glowMin:0.4,
-    glowMax:0.9
+    colors:['#00eaff','#7cffc7','#b388ff','#ff77ff'],
+    baseGlow:90,
+    glowRange:110,
+    baseSpeed:2.8,
+    speedRange:2.5
   },
   cyber:{
-    neon:'#00ff55',
-    glow:130,
-    speed:1.8,
-    strokeMin:4,
-    strokeMax:8,
-    glowMin:0.8,
-    glowMax:1.7
-  },
-  soft:{
-    neon:'#ffd6a5',
-    glow:45,
-    speed:6,
-    strokeMin:2,
-    strokeMax:3,
-    glowMin:0.3,
-    glowMax:0.7
+    colors:['#00ffea','#00ff55','#ffee00','#ff00ff'],
+    baseGlow:110,
+    glowRange:140,
+    baseSpeed:2,
+    speedRange:3.5
   }
-};
+}
