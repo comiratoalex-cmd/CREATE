@@ -1,14 +1,13 @@
 :root{
   --neon:#00eaff;
-
-  --glow:70px;
+  --glow:80px;
   --pulseSpeed:3s;
 
   --strokeMin:3px;
   --strokeMax:6px;
 
-  --pulseGlowMin:0.5;
-  --pulseGlowMax:1;
+  --glowMin:0.6;
+  --glowMax:1.2;
 }
 
 *{
