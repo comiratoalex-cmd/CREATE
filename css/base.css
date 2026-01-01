@@ -1,0 +1,29 @@
+:root{
+  --neon:#9b6cff;
+  --glow:40px;
+  --pulseSpeed:2.5s;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  background:#000;
+  color:#fff;
+  font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif;
+  display:flex;
+  height:100vh;
+  overflow:hidden;
+}
+
+.stage{
+  flex:1;
+  position:relative;
+}
+
+.obs-mode .panel{
+  display:none;
+}
