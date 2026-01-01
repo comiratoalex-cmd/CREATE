@@ -11,36 +11,35 @@
 
 <body>
 
-  <!-- PAINEL -->
-  <div class="panel">
-    <h1>COMIAL PRO</h1>
+<div class="panel">
+  <h1>COMIAL PRO</h1>
 
-    <button id="btnAI">🎨 Gerar Tema IA</button>
+  <label>Glow</label>
+  <input id="glowRange" type="range" min="10" max="160" value="40">
 
-    <label>Glow</label>
-    <input id="glowRange" type="range" min="10" max="140" value="40">
+  <label>Velocidade do Pulso</label>
+  <input id="speedRange" type="range" min="1" max="8" step="0.5" value="3">
 
-    <label>Velocidade do Pulso</label>
-    <input id="pulseSpeed" type="range" min="1" max="6" step="0.5" value="2.5">
+  <button id="btnPulse">⚡ Pulso ON / OFF</button>
 
-    <button id="btnPulse">⚡ Pulso ON / OFF</button>
-
-    <div class="presets">
-      <button data-theme="tokyo">Tokyo</button>
-      <button data-theme="aurora">Aurora</button>
-      <button data-theme="pastel">Pastel</button>
-    </div>
-
-    <button id="btnOBS">🎥 OBS MODE</button>
+  <div class="presets">
+    <button data-preset="tokyo">Tokyo</button>
+    <button data-preset="aurora">Aurora</button>
+    <button data-preset="pastel">Pastel</button>
+    <button data-preset="cyber">Cyber</button>
+    <button data-preset="soft">Soft</button>
   </div>
 
-  <!-- OVERLAY -->
-  <div class="stage">
-    <div id="overlay" class="overlay pulse-on">
-      <span class="overlay-label">OVERLAY ATIVO</span>
-    </div>
-  </div>
+  <button id="btnOBS">🎥 OBS MODE</button>
+</div>
 
-  <script src="js/main.js"></script>
+<div class="stage">
+  <div id="overlay" class="overlay pulse-on">
+    <span class="overlay-label">OVERLAY ATIVO</span>
+  </div>
+</div>
+
+<script src="js/presets.js"></script>
+<script src="js/main.js"></script>
 </body>
 </html>
