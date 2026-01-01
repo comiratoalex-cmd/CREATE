@@ -4,10 +4,10 @@
   top:40px;
   width:420px;
   height:720px;
-  border-radius:18px;
+  border-radius:20px;
   border:4px solid var(--neon);
   box-shadow:
-    0 0 calc(var(--glow) * 0.5) var(--neon),
+    0 0 calc(var(--glow) * 0.6) var(--neon),
     0 0 var(--glow) var(--neon);
 }
 
@@ -27,11 +27,11 @@
   0%{
     box-shadow:
       0 0 calc(var(--glow) * 0.4) var(--neon),
-      0 0 var(--glow) var(--neon);
+      0 0 calc(var(--glow) * 1) var(--neon);
   }
   50%{
     box-shadow:
-      0 0 calc(var(--glow) * 1.2) var(--neon),
-      0 0 calc(var(--glow) * 2) var(--neon);
+      0 0 calc(var(--glow) * var(--pulseMax)) var(--neon),
+      0 0 calc(var(--glow) * (var(--pulseMax) * 2)) var(--neon);
   }
 }
