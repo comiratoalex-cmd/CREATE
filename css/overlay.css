@@ -9,7 +9,7 @@
   border:var(--strokeMin) solid var(--neon);
 
   box-shadow:
-    0 0 calc(var(--glow) * var(--pulseGlowMin)) var(--neon),
+    0 0 calc(var(--glow) * var(--glowMin)) var(--neon),
     0 0 calc(var(--glow) * 0.6) var(--neon);
 }
 
@@ -29,13 +29,13 @@
   0%{
     border-width:var(--strokeMin);
     box-shadow:
-      0 0 calc(var(--glow) * var(--pulseGlowMin)) var(--neon),
+      0 0 calc(var(--glow) * var(--glowMin)) var(--neon),
       0 0 calc(var(--glow) * 0.6) var(--neon);
   }
   50%{
     border-width:var(--strokeMax);
     box-shadow:
-      0 0 calc(var(--glow) * var(--pulseGlowMax)) var(--neon),
+      0 0 calc(var(--glow) * var(--glowMax)) var(--neon),
       0 0 calc(var(--glow) * 1.4) var(--neon);
   }
 }
