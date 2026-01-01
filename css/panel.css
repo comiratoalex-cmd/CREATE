@@ -1,0 +1,44 @@
+.panel{
+  width:280px;
+  padding:20px;
+  background:#0b0b0b;
+  border-right:1px solid #1a1a1a;
+}
+
+.panel h1{
+  font-size:24px;
+  margin-bottom:20px;
+}
+
+.panel label{
+  font-size:14px;
+  opacity:.8;
+}
+
+.panel button,
+.panel input{
+  width:100%;
+  margin-bottom:14px;
+}
+
+.panel button{
+  padding:12px;
+  border:none;
+  border-radius:10px;
+  background:linear-gradient(90deg,#7f6cff,#00eaff);
+  color:#000;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.presets{
+  display:flex;
+  gap:8px;
+}
+
+.presets button{
+  flex:1;
+  background:#111;
+  color:#fff;
+  border:1px solid #222;
+}
