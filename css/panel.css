@@ -6,39 +6,31 @@
 }
 
 .panel h1{
-  font-size:24px;
   margin-bottom:20px;
 }
 
 .panel label{
-  font-size:14px;
+  font-size:13px;
   opacity:.8;
 }
 
-.panel button,
-.panel input{
+.panel input,
+.panel button{
   width:100%;
   margin-bottom:14px;
 }
 
 .panel button{
-  padding:12px;
+  padding:10px;
   border:none;
   border-radius:10px;
   background:linear-gradient(90deg,#7f6cff,#00eaff);
-  color:#000;
   font-weight:700;
   cursor:pointer;
 }
 
 .presets{
-  display:flex;
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
   gap:8px;
-}
-
-.presets button{
-  flex:1;
-  background:#111;
-  color:#fff;
-  border:1px solid #222;
 }
