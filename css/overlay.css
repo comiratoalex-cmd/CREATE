@@ -1,14 +1,16 @@
 /* =====================================================
-   OVERLAY — GRADIENTE 4 CORES + PULSO UNIFICADO
+   OVERLAY — GRADIENTE REAL 4 CORES (FIX DEFINITIVO)
    ===================================================== */
 
 .overlay{
   position:absolute;
   inset:40px;
   border-radius:22px;
+
+  /* ISSO É CRÍTICO */
   border:4px solid transparent;
 
-  /* Borda com gradiente real (4 cores) */
+  /* BORDA COM GRADIENTE REAL */
   background:
     linear-gradient(#000,#000) padding-box,
     linear-gradient(
@@ -19,34 +21,7 @@
       var(--c4)
     ) border-box;
 
-  /* Glow sincronizado */
+  /* GLOW USA CORES DO GRADIENTE */
   box-shadow:
     0 0 calc(var(--glow) * 0.6) var(--c2),
-    0 0 var(--glow) var(--c3);
-}
-
-.overlay-label{
-  position:absolute;
-  top:12px;
-  left:14px;
-  font-size:14px;
-  opacity:.7;
-}
-
-.pulse-on{
-  animation:pulseUnified var(--pulseSpeed) infinite ease-in-out;
-}
-
-/* Linha + Glow respiram juntos */
-@keyframes pulseUnified{
-  0%{
-    box-shadow:
-      0 0 calc(var(--glow) * 0.4) var(--c2),
-      0 0 calc(var(--glow) * 0.9) var(--c3);
-  }
-  50%{
-    box-shadow:
-      0 0 calc(var(--glow) * 1.2) var(--c2),
-      0 0 calc(var(--glow) * 2) var(--c3);
-  }
-}
+    0 0 ca
