@@ -1,41 +1,41 @@
 const PRESETS = {
-  tokyo: {
+  tokyo:{
     neon:'#00eaff',
-    glow:80,
+    glow:90,
     speed:2.4,
     strokeMin:3,
     strokeMax:6,
     glowMin:0.6,
-    glowMax:1.2
+    glowMax:1.3
   },
-  aurora: {
+  aurora:{
     neon:'#7cffc7',
-    glow:100,
-    speed:3.4,
+    glow:110,
+    speed:3.5,
     strokeMin:3,
     strokeMax:7,
     glowMin:0.7,
-    glowMax:1.4
+    glowMax:1.5
   },
-  pastel: {
+  pastel:{
     neon:'#ffb7ff',
-    glow:60,
+    glow:65,
     speed:4.8,
     strokeMin:2,
     strokeMax:4,
     glowMin:0.4,
     glowMax:0.9
   },
-  cyber: {
+  cyber:{
     neon:'#00ff55',
-    glow:120,
+    glow:130,
     speed:1.8,
     strokeMin:4,
     strokeMax:8,
     glowMin:0.8,
-    glowMax:1.6
+    glowMax:1.7
   },
-  soft: {
+  soft:{
     neon:'#ffd6a5',
     glow:45,
     speed:6,
