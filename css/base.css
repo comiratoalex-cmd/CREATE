@@ -1,8 +1,14 @@
 :root{
   --neon:#00eaff;
-  --glow:60px;
+
+  --glow:70px;
   --pulseSpeed:3s;
-  --pulseMax:2.4;
+
+  --strokeMin:3px;
+  --strokeMax:6px;
+
+  --pulseGlowMin:0.5;
+  --pulseGlowMax:1;
 }
 
 *{
@@ -14,7 +20,7 @@
 body{
   background:#000;
   color:#fff;
-  font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif;
+  font-family:Inter,system-ui,sans-serif;
   display:flex;
   height:100vh;
   overflow:hidden;
