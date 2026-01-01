@@ -4,11 +4,13 @@
   top:40px;
   width:420px;
   height:720px;
-  border-radius:20px;
-  border:4px solid var(--neon);
+  border-radius:22px;
+
+  border:var(--strokeMin) solid var(--neon);
+
   box-shadow:
-    0 0 calc(var(--glow) * 0.6) var(--neon),
-    0 0 var(--glow) var(--neon);
+    0 0 calc(var(--glow) * var(--pulseGlowMin)) var(--neon),
+    0 0 calc(var(--glow) * 0.6) var(--neon);
 }
 
 .overlay-label{
@@ -20,18 +22,20 @@
 }
 
 .pulse-on{
-  animation:pulseGlow var(--pulseSpeed) infinite ease-in-out;
+  animation:pulseUnified var(--pulseSpeed) infinite ease-in-out;
 }
 
-@keyframes pulseGlow{
+@keyframes pulseUnified{
   0%{
+    border-width:var(--strokeMin);
     box-shadow:
-      0 0 calc(var(--glow) * 0.4) var(--neon),
-      0 0 calc(var(--glow) * 1) var(--neon);
+      0 0 calc(var(--glow) * var(--pulseGlowMin)) var(--neon),
+      0 0 calc(var(--glow) * 0.6) var(--neon);
   }
   50%{
+    border-width:var(--strokeMax);
     box-shadow:
-      0 0 calc(var(--glow) * var(--pulseMax)) var(--neon),
-      0 0 calc(var(--glow) * (var(--pulseMax) * 2)) var(--neon);
+      0 0 calc(var(--glow) * var(--pulseGlowMax)) var(--neon),
+      0 0 calc(var(--glow) * 1.4) var(--neon);
   }
 }
